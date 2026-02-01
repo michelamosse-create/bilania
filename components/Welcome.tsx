@@ -115,20 +115,11 @@ const Welcome: React.FC<WelcomeProps> = ({ totalQuestions, heroImageUrl, onStart
 
           {/* Container image */}
           <div className="relative bg-slate-900/90 p-4 rounded-[3.5rem] shadow-2xl border border-white/20 aspect-square overflow-hidden flex items-center justify-center">
-            {heroImageUrl ? (
-              <img
-                src={heroImageUrl}
-                alt="Analyse de compétences"
-                className="w-full h-full object-cover rounded-[2.5rem] shadow-inner animate-in fade-in duration-1000"
-              />
-            ) : (
-              <div className="w-full h-full bg-slate-800/50 flex flex-col items-center justify-center gap-6 rounded-[2.5rem]">
-                <RefreshCw className="w-16 h-16 text-blue-500/30 animate-spin" />
-                <p className="text-xs font-black text-blue-200/40 uppercase tracking-widest">
-                  Chargement...
-                </p>
-              </div>
-            )}
+            <img
+              src={heroImageUrl || "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=600&fit=crop"}
+              alt="Analyse de compétences professionnelles"
+              className="w-full h-full object-cover rounded-[2.5rem] shadow-inner"
+            />
           </div>
 
           {/* Badge flottant */}
