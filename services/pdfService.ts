@@ -2,14 +2,14 @@ import { jsPDF } from 'jspdf';
 import { AssessmentResult } from '../types';
 
 const COLORS = {
-  primary: [37, 99, 235] as [number, number, number],      // Blue-600
-  secondary: [99, 102, 241] as [number, number, number],   // Indigo-500
-  dark: [15, 23, 42] as [number, number, number],          // Slate-900
-  light: [241, 245, 249] as [number, number, number],      // Slate-100
+  primary: [37, 99, 235] as [number, number, number],
+  secondary: [99, 102, 241] as [number, number, number],
+  dark: [15, 23, 42] as [number, number, number],
+  light: [241, 245, 249] as [number, number, number],
   white: [255, 255, 255] as [number, number, number],
-  green: [34, 197, 94] as [number, number, number],        // Green-500
-  text: [51, 65, 85] as [number, number, number],          // Slate-700
-  textLight: [100, 116, 139] as [number, number, number],  // Slate-500
+  green: [34, 197, 94] as [number, number, number],
+  text: [51, 65, 85] as [number, number, number],
+  textLight: [100, 116, 139] as [number, number, number],
 };
 
 export const generatePDF = (results: AssessmentResult): void => {
@@ -20,7 +20,6 @@ export const generatePDF = (results: AssessmentResult): void => {
   const contentWidth = pageWidth - margin * 2;
   let yPos = margin;
 
-  // Helper pour ajouter une nouvelle page si nécessaire
   const checkNewPage = (neededHeight: number) => {
     if (yPos + neededHeight > pageHeight - margin) {
       doc.addPage();
@@ -30,50 +29,49 @@ export const generatePDF = (results: AssessmentResult): void => {
     return false;
   };
 
-  // En-tête avec fond coloré
+  // === EN-TÊTE ===
   doc.setFillColor(...COLORS.primary);
   doc.rect(0, 0, pageWidth, 60, 'F');
 
-  // Logo texte
   doc.setTextColor(...COLORS.white);
   doc.setFontSize(28);
   doc.setFont('helvetica', 'bold');
   doc.text('BilanIA', margin, 25);
 
-  // Sous-titre
   doc.setFontSize(12);
   doc.setFont('helvetica', 'normal');
-  doc.text('Votre Bilan de Compétences Personnel', margin, 35);
+  doc.text('Votre Bilan de Competences Personnel', margin, 35);
 
-  // Date
   const date = new Date().toLocaleDateString('fr-FR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   });
   doc.setFontSize(10);
-  doc.text(`Généré le ${date}`, margin, 50);
+  doc.text('Genere le ' + date, margin, 50);
 
   yPos = 75;
 
-  // Section: Synthèse
+  // === SYNTHÈSE ===
   doc.setTextColor(...COLORS.primary);
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.text('SYNTHÈSE GLOBALE', margin, yPos);
+  doc.text('SYNTHESE GLOBALE', margin, yPos);
   yPos += 10;
 
   doc.setFillColor(...COLORS.light);
-  doc.roundedRect(margin, yPos, contentWidth, 35, 3, 3, 'F');
+  const summaryText = results.summary.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
+  const summaryLines = doc.splitTextToSize('"' + summaryText + '"', contentWidth - 10);
+  const summaryHeight = Math.max(35, summaryLines.length * 5 + 15);
+  doc.roundedRect(margin, yPos, contentWidth, summaryHeight, 3, 3, 'F');
 
   doc.setTextColor(...COLORS.text);
   doc.setFontSize(11);
   doc.setFont('helvetica', 'italic');
-  const summaryLines = doc.splitTextToSize(`"${results.summary}"`, contentWidth - 10);
   doc.text(summaryLines, margin + 5, yPos + 10);
-  yPos += 45;
+  yPos += summaryHeight + 10;
 
-  // Section: Points de Force
+  // === POINTS DE FORCE ===
   checkNewPage(60);
   doc.setTextColor(...COLORS.green);
   doc.setFontSize(14);
@@ -81,27 +79,28 @@ export const generatePDF = (results: AssessmentResult): void => {
   doc.text('POINTS DE FORCE', margin, yPos);
   yPos += 8;
 
-  doc.setTextColor(...COLORS.text);
   doc.setFontSize(11);
-  doc.setFont('helvetica', 'normal');
 
   results.strengths.forEach((strength, index) => {
     checkNewPage(15);
+    const cleanStrength = strength.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
+
     doc.setFillColor(...COLORS.light);
     doc.roundedRect(margin, yPos, contentWidth, 12, 2, 2, 'F');
+
     doc.setTextColor(...COLORS.primary);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${index + 1}.`, margin + 4, yPos + 8);
+    doc.text((index + 1) + '.', margin + 4, yPos + 8);
+
     doc.setTextColor(...COLORS.text);
     doc.setFont('helvetica', 'normal');
-    const strengthText = doc.splitTextToSize(strength, contentWidth - 20);
-    doc.text(strengthText[0], margin + 12, yPos + 8);
+    doc.text(cleanStrength.substring(0, 80), margin + 12, yPos + 8);
     yPos += 15;
   });
 
   yPos += 5;
 
-  // Section: Axe de Valeurs
+  // === AXE DE VALEURS ===
   checkNewPage(40);
   doc.setTextColor(...COLORS.secondary);
   doc.setFontSize(14);
@@ -109,99 +108,114 @@ export const generatePDF = (results: AssessmentResult): void => {
   doc.text('AXE DE VALEURS', margin, yPos);
   yPos += 8;
 
+  const cleanValues = results.valuesAlignment.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
+  const valuesLines = doc.splitTextToSize(cleanValues, contentWidth - 15);
+  const valuesHeight = Math.max(25, valuesLines.length * 5 + 10);
+
   doc.setFillColor(...COLORS.light);
-  doc.roundedRect(margin, yPos, contentWidth, 25, 3, 3, 'F');
+  doc.roundedRect(margin, yPos, contentWidth, valuesHeight, 3, 3, 'F');
   doc.setDrawColor(...COLORS.primary);
   doc.setLineWidth(1);
-  doc.line(margin, yPos, margin, yPos + 25);
+  doc.line(margin, yPos, margin, yPos + valuesHeight);
 
   doc.setTextColor(...COLORS.text);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'italic');
-  const valuesLines = doc.splitTextToSize(results.valuesAlignment, contentWidth - 15);
-  doc.text(valuesLines.slice(0, 3), margin + 8, yPos + 8);
-  yPos += 35;
+  doc.text(valuesLines.slice(0, 4), margin + 8, yPos + 8);
+  yPos += valuesHeight + 10;
 
-  // Section: Opportunités de Carrière
+  // === OPPORTUNITÉS DE CARRIÈRE ===
   checkNewPage(30);
   doc.setTextColor(...COLORS.primary);
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
-  doc.text('OPPORTUNITÉS DE CARRIÈRE', margin, yPos);
+  doc.text('OPPORTUNITES DE CARRIERE', margin, yPos);
   yPos += 10;
 
   results.careerSuggestions.forEach((career, index) => {
-    checkNewPage(45);
+    checkNewPage(55);
 
-    // Carte de carrière
+    const cleanTitle = career.title.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
+    const cleanDesc = career.description.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
+    const cleanRelevance = career.relevance.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
+    const cleanSalary = (career.salary_range || 'Non specifie').replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a');
+
+    // Carte
     doc.setFillColor(...COLORS.white);
     doc.setDrawColor(...COLORS.light);
-    doc.roundedRect(margin, yPos, contentWidth, 40, 3, 3, 'FD');
+    doc.roundedRect(margin, yPos, contentWidth, 50, 3, 3, 'FD');
 
     // Numéro
     doc.setFillColor(...COLORS.primary);
-    doc.circle(margin + 8, yPos + 8, 5, 'F');
+    doc.circle(margin + 8, yPos + 10, 5, 'F');
     doc.setTextColor(...COLORS.white);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${index + 1}`, margin + 6, yPos + 10);
+    doc.text(String(index + 1), margin + 6, yPos + 12);
 
     // Titre
     doc.setTextColor(...COLORS.dark);
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text(career.title, margin + 18, yPos + 10);
+    doc.text(cleanTitle, margin + 18, yPos + 12);
 
     // Description
     doc.setTextColor(...COLORS.textLight);
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
-    const descLines = doc.splitTextToSize(career.description, contentWidth - 25);
-    doc.text(descLines.slice(0, 2), margin + 18, yPos + 18);
+    const descLines = doc.splitTextToSize(cleanDesc, contentWidth - 25);
+    doc.text(descLines.slice(0, 2), margin + 18, yPos + 20);
 
-    // Affinité et Salaire
+    // Affinité (ligne séparée)
     doc.setFontSize(8);
-    doc.setFont('helvetica', 'bold');
     doc.setTextColor(...COLORS.primary);
-    doc.text(`Affinité: ${career.relevance}`, margin + 18, yPos + 32);
-    doc.setTextColor(...COLORS.textLight);
-    doc.text(`Rémunération: ${career.salary_range}`, margin + 70, yPos + 32);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Affinite: ', margin + 18, yPos + 35);
+    doc.setFont('helvetica', 'normal');
+    const affinityLines = doc.splitTextToSize(cleanRelevance, contentWidth - 40);
+    doc.text(affinityLines[0].substring(0, 70), margin + 32, yPos + 35);
 
-    yPos += 45;
+    // Salaire (ligne séparée)
+    doc.setTextColor(...COLORS.textLight);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Remuneration: ', margin + 18, yPos + 42);
+    doc.setFont('helvetica', 'normal');
+    doc.text(cleanSalary, margin + 45, yPos + 42);
+
+    yPos += 55;
   });
 
-  // Section: Radar des Compétences (données textuelles)
+  // === ANALYSE DES COMPÉTENCES ===
   checkNewPage(50);
   doc.setTextColor(...COLORS.primary);
   doc.setFontSize(14);
   doc.setFont('helvetica', 'bold');
-  doc.text('ANALYSE DES COMPÉTENCES', margin, yPos);
+  doc.text('ANALYSE DES COMPETENCES', margin, yPos);
   yPos += 10;
 
   results.skillsRadarData.forEach((skill) => {
     checkNewPage(12);
     const barWidth = (skill.A / skill.fullMark) * (contentWidth - 60);
+    const cleanSubject = skill.subject.replace(/[éèê]/g, 'e').replace(/[àâ]/g, 'a').replace(/[ùû]/g, 'u').replace(/[îï]/g, 'i').replace(/[ôö]/g, 'o').replace(/ç/g, 'c');
 
     doc.setTextColor(...COLORS.text);
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text(skill.subject, margin, yPos + 5);
+    doc.text(cleanSubject, margin, yPos + 5);
 
-    // Barre de progression
     doc.setFillColor(...COLORS.light);
     doc.roundedRect(margin + 50, yPos, contentWidth - 60, 8, 2, 2, 'F');
     doc.setFillColor(...COLORS.primary);
     doc.roundedRect(margin + 50, yPos, barWidth, 8, 2, 2, 'F');
 
-    // Score
     doc.setTextColor(...COLORS.primary);
     doc.setFont('helvetica', 'bold');
-    doc.text(`${skill.A}/${skill.fullMark}`, pageWidth - margin - 10, yPos + 5);
+    doc.text(skill.A + '/' + skill.fullMark, pageWidth - margin - 10, yPos + 5);
 
     yPos += 12;
   });
 
-  // Pied de page sur toutes les pages
+  // === PIED DE PAGE ===
   const totalPages = doc.getNumberOfPages();
   for (let i = 1; i <= totalPages; i++) {
     doc.setPage(i);
@@ -210,12 +224,11 @@ export const generatePDF = (results: AssessmentResult): void => {
     doc.setTextColor(...COLORS.white);
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text('BilanIA - Bilan de Compétences propulsé par Intelligence Artificielle', margin, pageHeight - 6);
-    doc.text(`Page ${i}/${totalPages}`, pageWidth - margin - 15, pageHeight - 6);
+    doc.text('BilanIA - Bilan de Competences propulse par Intelligence Artificielle', margin, pageHeight - 6);
+    doc.text('Page ' + i + '/' + totalPages, pageWidth - margin - 15, pageHeight - 6);
   }
 
-  // Télécharger le PDF
-  const fileName = `BilanIA_${date.replace(/\s/g, '_')}.pdf`;
+  const fileName = 'BilanIA_' + date.replace(/\s/g, '_') + '.pdf';
   doc.save(fileName);
 };
 
