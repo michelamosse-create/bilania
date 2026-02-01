@@ -63,9 +63,18 @@ export const generateAssessmentReport = async (
       };
     });
 
-    const prompt = `Tu es un expert RH de classe mondiale. Analyse ces réponses de bilan de compétences : ${JSON.stringify(formattedData)}.
-    Génère un rapport de synthèse encourageant et ultra-professionnel en JSON strict.
-    Le radar (skillsRadarData) doit comporter 5 axes : Leadership, Technique, Créativité, Adaptabilité, Communication. Score A entre 1 et 5.`;
+    const prompt = `Tu es un expert RH et coach en orientation professionnelle. Analyse ces réponses de bilan de compétences : ${JSON.stringify(formattedData)}.
+
+RÈGLES IMPORTANTES :
+1. Le radar (skillsRadarData) doit avoir 5 axes : Leadership, Technique, Créativité, Adaptabilité, Communication. Score entre 1 et 5.
+2. Les suggestions de carrière (careerSuggestions) DOIVENT être COHÉRENTES avec les scores du radar :
+   - Si Leadership < 3 : NE PAS proposer de postes de management ou direction d'équipe
+   - Si Technique < 3 : NE PAS proposer de postes techniques spécialisés
+   - Privilégier les métiers qui correspondent aux scores les PLUS ÉLEVÉS
+3. Chaque suggestion doit expliquer POURQUOI elle correspond au profil en citant les compétences fortes
+4. Propose 3 métiers vraiment adaptés au profil, pas des métiers génériques
+
+Génère un rapport encourageant mais RÉALISTE et COHÉRENT en JSON strict.`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3-flash-preview",
