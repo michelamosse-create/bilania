@@ -1,7 +1,8 @@
-import React from 'react';
-import { CheckCircle2, Zap, Target, Briefcase, Download } from 'lucide-react';
+import React, { useState } from 'react';
+import { CheckCircle2, Zap, Target, Briefcase, Download, Loader2 } from 'lucide-react';
 import { AssessmentResult } from '../types';
 import SkillsRadar from './SkillsRadar';
+import { generatePDF } from '../services/pdfService';
 
 interface ResultsProps {
   results: AssessmentResult;
@@ -9,8 +10,20 @@ interface ResultsProps {
 }
 
 const Results: React.FC<ResultsProps> = ({ results, onRestart }) => {
-  const handlePrint = () => {
-    window.print();
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    setIsGeneratingPDF(true);
+    try {
+      // Petit délai pour afficher le loader
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      generatePDF(results);
+    } catch (error) {
+      console.error('Erreur génération PDF:', error);
+      alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+    } finally {
+      setIsGeneratingPDF(false);
+    }
   };
 
   return (
@@ -116,10 +129,19 @@ const Results: React.FC<ResultsProps> = ({ results, onRestart }) => {
 
       <div className="flex flex-col sm:flex-row justify-center gap-6 md:gap-8 px-6 no-print">
         <button
-          onClick={handlePrint}
-          className="bg-white text-slate-900 px-12 py-7 rounded-[2.5rem] font-black uppercase text-sm tracking-widest flex items-center justify-center gap-4 shadow-2xl hover:bg-blue-400 hover:text-white transition-all active:scale-95"
+          onClick={handleDownloadPDF}
+          disabled={isGeneratingPDF}
+          className="bg-white text-slate-900 px-12 py-7 rounded-[2.5rem] font-black uppercase text-sm tracking-widest flex items-center justify-center gap-4 shadow-2xl hover:bg-blue-400 hover:text-white transition-all active:scale-95 disabled:opacity-70 disabled:cursor-wait"
         >
-          <Download className="w-6 h-6" /> Télécharger mon Bilan (PDF)
+          {isGeneratingPDF ? (
+            <>
+              <Loader2 className="w-6 h-6 animate-spin" /> Génération en cours...
+            </>
+          ) : (
+            <>
+              <Download className="w-6 h-6" /> Télécharger mon Bilan (PDF)
+            </>
+          )}
         </button>
         <button
           onClick={onRestart}
