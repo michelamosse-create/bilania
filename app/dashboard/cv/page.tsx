@@ -172,7 +172,7 @@ export default function CVUploadPage() {
                           Glissez-déposez votre CV ici
                         </p>
                         <p className="text-sm text-slate-400 mt-1">
-                          Format PDF uniquement — Max 10 MB
+                          Format PDF uniquement : Max 10 MB
                         </p>
                       </div>
                       <Button variant="outline" className="rounded-full">

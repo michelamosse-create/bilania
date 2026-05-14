@@ -80,7 +80,7 @@ export default function FullResultsPage() {
               <div className="grid md:grid-cols-2 gap-8">
                 <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
                   <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <Brain className="w-5 h-5 text-blue-600" /> Personnalité — Big Five
+                    <Brain className="w-5 h-5 text-blue-600" /> Personnalité : Big Five
                   </h2>
                   <BigFiveRadar data={result.bigFive} />
                   <div className="mt-4">
@@ -89,7 +89,7 @@ export default function FullResultsPage() {
                 </div>
                 <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
                   <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <Briefcase className="w-5 h-5 text-purple-600" /> Intérêts — RIASEC
+                    <Briefcase className="w-5 h-5 text-purple-600" /> Intérêts : RIASEC
                   </h2>
                   <RiasecHexagon data={result.riasec} />
                   <div className="mt-4">

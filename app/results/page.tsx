@@ -74,7 +74,7 @@ export default function ResultsPage() {
               {result.bigFive && (
               <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
                 <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                  <Brain className="w-5 h-5 text-blue-600" /> Traits de personnalité — Big Five
+                  <Brain className="w-5 h-5 text-blue-600" /> Traits de personnalité : Big Five
                 </h2>
                 <div className="space-y-3">
                   {[
@@ -216,7 +216,7 @@ export default function ResultsPage() {
                           <div key={i} className="flex items-center justify-between bg-white rounded-lg p-2.5 text-xs border border-slate-100">
                             <div>
                               <span className="font-semibold text-slate-700">Métier #{i}</span>
-                              <span className="text-slate-300 ml-2">—</span>
+                              <span className="text-slate-300 ml-2">: </span>
                             </div>
                             <div className="flex items-center gap-2">
                               <span className="text-slate-300">ROME: ?</span>
@@ -343,7 +343,7 @@ function PromoCodeInput({ onSuccess }: { onSuccess: () => void }) {
       <div className="flex items-center gap-2 mb-2">
         <span className="text-lg">🎁</span>
         <span className="font-bold text-slate-700 text-sm">Code promo</span>
-        <span className="text-xs text-slate-400">— accès gratuit au bilan complet</span>
+        <span className="text-xs text-slate-400">: accès gratuit au bilan complet</span>
       </div>
       <div className="flex gap-2">
         <input type="text" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="Entrez votre code ici"

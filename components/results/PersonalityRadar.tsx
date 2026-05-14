@@ -54,7 +54,7 @@ export function BigFiveBars({ data }: { data: BigFive }) {
           <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
             <div className="w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: COLORS[i] }} />
             <span className="font-medium text-slate-600">{item.trait}</span>
-            <span className="text-slate-400">— {item.label}</span>
+            <span className="text-slate-400">: {item.label}</span>
           </div>
         ))}
       </div>
@@ -115,7 +115,7 @@ export function RiasecBars({ data }: { data: Riasec }) {
           <div key={i} className="flex items-center gap-2 text-xs text-slate-500">
             <div className="w-3 h-3 rounded-sm shrink-0" style={{ backgroundColor: riasecColors[i] }} />
             <span className="font-medium text-slate-600">{item.trait}</span>
-            <span className="text-slate-400">— {item.label}</span>
+            <span className="text-slate-400">: {item.label}</span>
           </div>
         ))}
       </div>

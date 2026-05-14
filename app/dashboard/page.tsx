@@ -128,7 +128,7 @@ export default function DashboardPage() {
                 <Card>
                   <CardHeader>
                     <h2 className="text-xl font-bold text-slate-800">
-                      Questionnaire complet — 84 questions
+                      Questionnaire complet : 84 questions
                     </h2>
                     <p className="text-slate-500 text-sm">
                       Passez le bilan intégral sur 10 domaines pour obtenir votre analyse approfondie.

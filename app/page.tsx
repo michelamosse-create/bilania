@@ -140,7 +140,7 @@ export default function Home() {
                 <p className="leading-relaxed">
                   <strong className="text-slate-900">Un bilan de compétences traditionnel coûte entre 200€ et 2000€</strong>{" "}et prend
                   plusieurs semaines. BilanIA vous donne l&apos;essentiel en 5 minutes pour 0€, et une analyse complète
-                  pour 9,90€ — soit 20 à 50 fois moins cher qu&apos;un cabinet classique.
+                  pour 9,90€ : soit 20 à 50 fois moins cher qu&apos;un cabinet classique.
                 </p>
               </div>
             </div>
@@ -302,7 +302,7 @@ export default function Home() {
             {/* Big Five + RIASEC mock */}
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white rounded-xl p-6 border border-slate-100">
-                <div className="text-sm font-bold text-slate-800 mb-4">Personnalité — Big Five</div>
+                <div className="text-sm font-bold text-slate-800 mb-4">Personnalité : Big Five</div>
                 <div className="grid grid-cols-5 gap-3">
                   {[{l:'Ouverture',v:68,c:'#2563eb'},{l:'Rigueur',v:72,c:'#0891b2'},{l:'Extraversion',v:45,c:'#7c3aed'},{l:'Agréabilité',v:75,c:'#059669'},{l:'Stabilité',v:62,c:'#d97706'}].map(({l,v,c})=>(
                     <div key={l} className="text-center">
@@ -319,7 +319,7 @@ export default function Home() {
                 </div>
               </div>
               <div className="bg-white rounded-xl p-6 border border-slate-100">
-                <div className="text-sm font-bold text-slate-800 mb-4">Intérêts — RIASEC</div>
+                <div className="text-sm font-bold text-slate-800 mb-4">Intérêts : RIASEC</div>
                 <div className="grid grid-cols-6 gap-2">
                   {[{l:'R',v:50},{l:'I',v:65},{l:'A',v:40},{l:'S',v:75},{l:'E',v:55},{l:'C',v:60}].map(({l,v})=>(
                     <div key={l} className="text-center">
@@ -405,7 +405,7 @@ export default function Home() {
                   Gratuit
                 </Badge>
                 <div className="text-3xl font-bold text-slate-900 mb-2">0 €</div>
-                <p className="text-slate-500 text-sm mb-6">Test d'orientation — 12 questions en 5 minutes</p>
+                <p className="text-slate-500 text-sm mb-6">Test d'orientation : 12 questions en 5 minutes</p>
                 <ul className="space-y-3 mb-8">
                   {[
                     "Votre profil professionnel identifié",

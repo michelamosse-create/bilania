@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "BilanIA — Bilan de Compétences par Intelligence Artificielle",
+  title: "BilanIA : Bilan de Compétences par Intelligence Artificielle",
   description:
     "Réalisez un bilan de compétences gratuit propulsé par l'IA. Découvrez les métiers du numérique qui vous correspondent et les formations CPF adaptées à votre profil.",
   keywords: [
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "IA",
   ],
   openGraph: {
-    title: "BilanIA — Votre Bilan de Compétences par IA",
+    title: "BilanIA : Votre Bilan de Compétences par IA",
     description:
       "Découvrez les métiers du numérique qui vous correspondent. Test gratuit en 5 minutes.",
     type: "website",

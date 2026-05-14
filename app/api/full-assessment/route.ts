@@ -103,7 +103,7 @@ ${allOpenQuestions.map(q => `[${q.id}] ${q.text}\nRÉPONSE: ${openAnswers[q.id] 
 
     const cvSection = cvText ? `\nCV DU CANDIDAT:\n${cvText.substring(0, 3000)}\n` : '';
 
-    const prompt = `Bilan de compétences — ${ALL_QUESTIONS.length} questions.
+    const prompt = `Bilan de compétences : ${ALL_QUESTIONS.length} questions.
 
 RÉPONSES:
 ${JSON.stringify(compact)}
