@@ -36,10 +36,7 @@ export const MOTIVATION_QUESTIONS: Question[] = [
 // 3. Soft skills
 export const BEHAVIOR_QUESTIONS: Question[] = [
   { id: 'beh_unexpected', category: 'soft_skills', text: "Face à un imprévu au travail, vous :", options: [
-    { value: 1, label: "Paniquez" }, { value: 2, label: "Cherchez une solution seul(e)" }, { value: 3, label: "Demandez de l'aide" }, { value: 4, label: "Déléguez rapidement" }, { value: 5, label: "Analysez calmement et adaptez le plan" }] },
-  { id: 'beh_introvert', category: 'soft_skills', text: "Êtes-vous plutôt :", options: [
-    { value: 1, label: "Très introverti(e)" }, { value: 2, label: "Plutôt introverti(e)" }, { value: 3, label: "Ambiverti(e)" }, { value: 4, label: "Plutôt extraverti(e)" }, { value: 5, label: "Très extraverti(e)" }] },
-  { id: 'beh_pressure', category: 'soft_skills', text: "Gérez-vous bien la pression des délais courts ?", options: [
+    { value: 1, label: "Paniquez" }, { value: 2, label: "Cherchez une solution seul(e)" }, { value: 3, label: "Demandez de l'aide" }, { value: 4, label: "Déléguez rapidement" }, { value: 5, label: "Analysez calmement et adaptez le plan" }] },{ id: 'beh_pressure', category: 'soft_skills', text: "Gérez-vous bien la pression des délais courts ?", options: [
     { value: 1, label: "Jamais, je perds mes moyens" }, { value: 2, label: "Rarement" }, { value: 3, label: "Parfois" }, { value: 4, label: "Souvent" }, { value: 5, label: "Toujours, je suis même plus performant" }] },
   { id: 'beh_instructions', category: 'environment', text: "Préférez-vous des consignes claires ou une liberté totale ?", options: [
     { value: 1, label: "Consignes très détaillées" }, { value: 2, label: "Plutôt des consignes" }, { value: 3, label: "Un équilibre" }, { value: 4, label: "Plutôt de la liberté" }, { value: 5, label: "Liberté totale, je crée mes propres règles" }] },
@@ -48,10 +45,7 @@ export const BEHAVIOR_QUESTIONS: Question[] = [
 ];
 
 // 4. Compétences techniques
-export const TECHNICAL_QUESTIONS: Question[] = [
-  { id: 'tech_english', category: 'hard_skills', text: "Quel est votre niveau d'anglais professionnel ?", options: [
-    { value: 1, label: "Débutant" }, { value: 2, label: "Intermédiaire" }, { value: 3, label: "Courant" }, { value: 4, label: "Bilingue" }, { value: 5, label: "Natif" }] },
-  { id: 'tech_excel', category: 'hard_skills', text: "Êtes-vous à l'aise avec les chiffres et Excel avancé ?", options: [
+export const TECHNICAL_QUESTIONS: Question[] = [{ id: 'tech_excel', category: 'hard_skills', text: "Êtes-vous à l'aise avec les chiffres et Excel avancé ?", options: [
     { value: 1, label: "Pas du tout" }, { value: 2, label: "Fonctions de base" }, { value: 3, label: "Moyennement" }, { value: 4, label: "À l'aise (TCD, VBA)" }, { value: 5, label: "Expert, je forme les autres" }] },
   { id: 'tech_digital', category: 'digital_culture', text: "Quel est votre niveau en compétences digitales (SEO, réseaux sociaux, analytics) ?", options: [
     { value: 1, label: "Aucune connaissance" }, { value: 2, label: "Notions de base" }, { value: 3, label: "Intermédiaire" }, { value: 4, label: "Avancé" }, { value: 5, label: "Expert" }] },
@@ -94,10 +88,7 @@ export const OBSTACLES_QUESTIONS: Question[] = [
 // 7. Environnement de travail souhaité
 export const WORKPLACE_QUESTIONS: Question[] = [
   { id: 'wp_status', category: 'environment', text: "Quel statut souhaitez-vous ?", options: [
-    { value: 1, label: "Salarié CDI" }, { value: 2, label: "Fonctionnaire" }, { value: 3, label: "CDD / intérim" }, { value: 4, label: "Indépendant / freelance" }, { value: 5, label: "Auto-entrepreneur" }] },
-  { id: 'wp_remote', category: 'environment', text: "Quel est votre rapport au travail à distance ?", options: [
-    { value: 1, label: "Uniquement présentiel" }, { value: 2, label: "Plutôt présentiel" }, { value: 3, label: "Hybride (2-3 jours remote)" }, { value: 4, label: "Plutôt télétravail" }, { value: 5, label: "100% télétravail" }] },
-  { id: 'wp_company_size', category: 'environment', text: "Quelle taille d'entreprise préférez-vous ?", options: [
+    { value: 1, label: "Salarié CDI" }, { value: 2, label: "Fonctionnaire" }, { value: 3, label: "CDD / intérim" }, { value: 4, label: "Indépendant / freelance" }, { value: 5, label: "Auto-entrepreneur" }] },{ id: 'wp_company_size', category: 'environment', text: "Quelle taille d'entreprise préférez-vous ?", options: [
     { value: 1, label: "Startup (1-10)" }, { value: 2, label: "PME (10-250)" }, { value: 3, label: "ETI (250-5000)" }, { value: 4, label: "Grand groupe (5000+)" }, { value: 5, label: "Association / ONG" }] },
   { id: 'wp_flexible', category: 'environment', text: "Des horaires flexibles sont-ils indispensables ?", options: [
     { value: 1, label: "Non, je préfère des horaires fixes" }, { value: 2, label: "Plutôt fixes" }, { value: 3, label: "Indifférent" }, { value: 4, label: "Plutôt flexibles" }, { value: 5, label: "Oui, indispensables" }] },
@@ -122,10 +113,7 @@ export const ASPIRATION_QUESTIONS: Question[] = [
 // 9. Auto-évaluation
 export const SELF_ASSESS_QUESTIONS: Question[] = [
   { id: 'self_employability', category: 'hard_skills', text: "Sur 5, quelle est votre employabilité actuelle (auto-évaluation) ?", options: [
-    { value: 1, label: "1 - Très faible" }, { value: 2, label: "2 - Faible" }, { value: 3, label: "3 - Moyenne" }, { value: 4, label: "4 - Bonne" }, { value: 5, label: "5 - Excellente" }] },
-  { id: 'self_discipline', category: 'learning_adaptability', text: "Êtes-vous discipliné(e) pour apprendre de nouvelles compétences par vous-même ?", options: [
-    { value: 1, label: "Pas du tout, j'ai besoin d'un cadre" }, { value: 2, label: "Difficilement" }, { value: 3, label: "Parfois, selon le sujet" }, { value: 4, label: "Plutôt oui" }, { value: 5, label: "Oui, je suis très autonome" }] },
-  { id: 'self_structure', category: 'environment', text: "Avez-vous besoin d'un cadre très structuré pour avancer ?", options: [
+    { value: 1, label: "1 - Très faible" }, { value: 2, label: "2 - Faible" }, { value: 3, label: "3 - Moyenne" }, { value: 4, label: "4 - Bonne" }, { value: 5, label: "5 - Excellente" }] },{ id: 'self_structure', category: 'environment', text: "Avez-vous besoin d'un cadre très structuré pour avancer ?", options: [
     { value: 1, label: "Toujours, sans cadre je suis perdu(e)" }, { value: 2, label: "Souvent" }, { value: 3, label: "Parfois" }, { value: 4, label: "Rarement" }, { value: 5, label: "Je crée mon propre cadre" }] },
   { id: 'self_style', category: 'soft_skills', text: "Êtes-vous plutôt :", options: [
     { value: 1, label: "Stratège (pense long terme)" }, { value: 2, label: "Exécutant (fait avancer)" }, { value: 3, label: "Créatif (imagine)" }, { value: 4, label: "Analyste (approfondit)" }, { value: 5, label: "Leader (fédère et dirige)" }] },
