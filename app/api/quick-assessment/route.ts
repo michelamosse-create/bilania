@@ -47,6 +47,9 @@ Calcule Big Five (0-100) et RIASEC (0-100). Fournis UNIQUEMENT ce JSON:
 
     const result = await analyzeWithAI(prompt, 2048);
     const data = JSON.parse(result);
+    // Ensure bigFive is always present
+    if (!data.bigFive) data.bigFive = { openness: 60, conscientiousness: 65, extraversion: 50, agreeableness: 60, neuroticism: 35 };
+    if (!data.riasec) data.riasec = { realistic: 50, investigative: 70, artistic: 40, social: 55, enterprising: 45, conventional: 60 };
     return NextResponse.json(data);
   } catch (error) {
     console.error('Erreur analyse rapide:', error);

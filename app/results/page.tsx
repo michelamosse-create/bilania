@@ -72,12 +72,14 @@ export default function ResultsPage() {
 
             <CardContent className="p-8 space-y-8">
               {/* Big Five bars */}
+              {result.bigFive && (
               <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100">
                 <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                   <Brain className="w-5 h-5 text-blue-600" /> Traits de personnalité — Big Five
                 </h2>
                 <BigFiveBars data={result.bigFive} />
               </div>
+              )}
 
               {/* Affinity */}
               <div className="flex flex-col sm:flex-row gap-6 items-center bg-slate-50 rounded-2xl p-6">
