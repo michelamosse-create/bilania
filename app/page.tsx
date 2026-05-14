@@ -390,6 +390,102 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Exemple de rapport */}
+      <section className="py-20 md:py-28 bg-white border-t border-slate-200">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-4">Exemple de rapport premium</h2>
+          <p className="text-slate-500 text-center mb-12">Voici à quoi ressemble un vrai rapport généré par BilanIA</p>
+
+          <div className="bg-slate-50 rounded-2xl border border-slate-200 p-6 md:p-10 shadow-sm space-y-8">
+            {/* Big Five + RIASEC mock */}
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-xl p-6 border border-slate-100">
+                <div className="text-sm font-bold text-slate-800 mb-4">Personnalité — Big Five</div>
+                <div className="grid grid-cols-5 gap-3">
+                  {[{l:'Ouverture',v:68,c:'#2563eb'},{l:'Rigueur',v:72,c:'#0891b2'},{l:'Extraversion',v:45,c:'#7c3aed'},{l:'Agréabilité',v:75,c:'#059669'},{l:'Stabilité',v:62,c:'#d97706'}].map(({l,v,c})=>(
+                    <div key={l} className="text-center">
+                      <svg width="60" height="60" viewBox="0 0 60 60" className="mx-auto">
+                        <circle cx="30" cy="30" r="22" fill="none" stroke="#e2e8f0" strokeWidth="4"/>
+                        <circle cx="30" cy="30" r="22" fill="none" stroke={c} strokeWidth="4"
+                          strokeDasharray={2*Math.PI*22} strokeDashoffset={2*Math.PI*22-(v/100)*2*Math.PI*22}
+                          strokeLinecap="round" transform="rotate(-90 30 30)"/>
+                        <text x="30" y="32" textAnchor="middle" fontSize="12" fontWeight="800" fill={c}>{v}</text>
+                      </svg>
+                      <div className="text-xs font-semibold text-slate-600 mt-1">{l}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="bg-white rounded-xl p-6 border border-slate-100">
+                <div className="text-sm font-bold text-slate-800 mb-4">Intérêts — RIASEC</div>
+                <div className="grid grid-cols-6 gap-2">
+                  {[{l:'R',v:50},{l:'I',v:65},{l:'A',v:40},{l:'S',v:75},{l:'E',v:55},{l:'C',v:60}].map(({l,v})=>(
+                    <div key={l} className="text-center">
+                      <div className="w-10 h-10 rounded-full bg-purple-50 flex items-center justify-center mx-auto text-xs font-bold text-purple-700">{v}</div>
+                      <div className="text-xs text-slate-500 mt-1">{l}</div>
+                    </div>
+                  ))}
+                </div>
+                <div className="text-xs text-slate-400 mt-4">Réaliste · Investigateur · Artistique · Social · Entreprenant · Conventionnel</div>
+              </div>
+            </div>
+
+            {/* Domain scores */}
+            <div className="bg-white rounded-xl p-6 border border-slate-100">
+              <div className="text-sm font-bold text-slate-800 mb-4">10 scores de compétences (sur 5)</div>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+                {[{l:'Relationnel',v:4.2},{l:'Analyse',v:3.8},{l:'Créativité',v:3.0},{l:'Organisation',v:4.5},{l:'Numérique',v:3.2},{l:'IA',v:2.5},{l:'Adaptabilité',v:4.0},{l:'Leadership',v:3.5},{l:'Technique',v:3.8},{l:'Communication',v:4.5}].map(({l,v})=>(
+                  <div key={l} className="bg-slate-50 rounded-lg p-3 text-center">
+                    <div className="text-xs text-slate-500">{l}</div>
+                    <div className="text-lg font-bold text-blue-600">{v}<span className="text-xs text-slate-400">/5</span></div>
+                    <div className="mt-1 bg-slate-200 rounded-full h-1.5"><div className="bg-blue-500 h-1.5 rounded-full" style={{width:`${(v/5)*100}%`}}/></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Careers + Formations + Action plan */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-xl p-5 border border-slate-100">
+                <div className="text-sm font-bold text-slate-800 mb-3">5 métiers recommandés</div>
+                {[{t:'Product Owner',r:'M1703',s:'45-65k€',m:92},{t:'Chef de projet IT',r:'M1806',s:'40-65k€',m:85},{t:'Consultant IA',r:'M1402',s:'50-75k€',m:78}].map((c,i)=>(
+                  <div key={i} className="flex justify-between items-center py-2 border-b border-slate-50 text-sm">
+                    <div><span className="font-medium">{c.t}</span><span className="text-xs text-slate-400 ml-2">ROME {c.r}</span></div>
+                    <span className="font-bold text-blue-600 text-xs">{c.m}%</span>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-green-200">
+                <div className="text-sm font-bold text-green-800 mb-3">Formations CPF</div>
+                {[{t:'PSPO I',rs:'RS1234',d:'3 jours',c:'1 200€'},{t:'Data Analyst',rs:'RS5678',d:'6 mois',c:'4 500€'},{t:'No-Code',rs:'RS6789',d:'3 mois',c:'2 500€'}].map((f,i)=>(
+                  <div key={i} className="py-2 border-b border-green-50 text-sm">
+                    <div className="font-medium text-green-900">{f.t}</div>
+                    <div className="text-xs text-green-600">RS {f.rs} · {f.d} · {f.c}</div>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-white rounded-xl p-5 border border-slate-100">
+                <div className="text-sm font-bold text-slate-800 mb-3">Plan d'action</div>
+                {[{w:1,a:'Contacter 3 pros sur LinkedIn'},{w:2,a:'Suivre MOOC IA pour tous'},{w:4,a:"S'inscrire à une formation CPF"}].map((s,i)=>(
+                  <div key={i} className="flex gap-3 py-2 text-sm">
+                    <span className="bg-blue-100 text-blue-700 font-bold text-xs px-2 py-0.5 rounded-full h-fit">S{s.w}</span>
+                    <span className="text-slate-600">{s.a}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/assessment">
+              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full text-lg px-10 py-6 shadow-lg shadow-blue-200 group">
+                Faire le test gratuit <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="py-20 md:py-28 bg-slate-50">
         <div className="max-w-5xl mx-auto px-4">
