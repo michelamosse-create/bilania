@@ -160,14 +160,8 @@ export default function AssessmentPage() {
           {step === "questions" && currentQuestion && (
             <div className="bg-white rounded-3xl shadow-xl border border-slate-100 p-8 md:p-12 animate-in zoom-in-95 duration-300">
               {/* Progress */}
-              <div className="flex items-center justify-between mb-8">
-                <button
-                  onClick={handleBack}
-                  className="p-2 hover:bg-slate-100 rounded-full transition-colors text-slate-500"
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-                <div className="flex flex-col items-center flex-grow px-4">
+              <div className="flex items-center justify-center mb-8">
+                <div className="flex flex-col items-center w-full">
                   <Progress value={progress} className="w-full h-2" />
                   <div className="flex items-center justify-between w-full mt-2">
                     <span className="text-xs font-medium text-slate-400">
@@ -178,7 +172,6 @@ export default function AssessmentPage() {
                     </span>
                   </div>
                 </div>
-                <div className="w-10" />
               </div>
 
               <div className="space-y-8">

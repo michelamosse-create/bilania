@@ -158,10 +158,9 @@ export default function FullAssessmentPage() {
                     placeholder={allOpen[openIndex].placeholder}
                     className="w-full h-40 p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none resize-none text-slate-700"
                   />
-                  <div className="flex justify-center gap-4">
-                    {openIndex > 0 && <Button variant="outline" onClick={() => setOpenIndex(i => i - 1)} className="rounded-full"><ChevronLeft className="w-4 h-4 mr-1" /> Précédent</Button>}
+                  <div className="flex justify-center">
                     <Button onClick={() => openIndex < totalOpen - 1 ? setOpenIndex(i => i + 1) : setStep('scale')} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8">
-                      {openIndex < totalOpen - 1 ? <>Suivant <ChevronRight className="w-4 h-4 ml-2" /></> : <>Commencer le questionnaire <ChevronRight className="w-4 h-4 ml-2" /></>}
+                      {openIndex < totalOpen - 1 ? <>Question suivante <ChevronRight className="w-4 h-4 ml-2" /></> : <>Commencer le questionnaire <ChevronRight className="w-4 h-4 ml-2" /></>}
                     </Button>
                   </div>
                 </div>
@@ -172,16 +171,14 @@ export default function FullAssessmentPage() {
           {step === 'scale' && (
             <Card className="border-blue-100 shadow-xl">
               <CardContent className="p-8 md:p-12">
-                <div className="flex items-center justify-between mb-8">
-                  <button onClick={() => scaleIndex > 0 ? setScaleIndex(i => i - 1) : setStep('open')} className="p-2 hover:bg-slate-100 rounded-full text-slate-500"><ChevronLeft className="w-6 h-6" /></button>
-                  <div className="flex flex-col items-center flex-grow px-4">
+                <div className="flex items-center justify-center mb-8">
+                  <div className="flex flex-col items-center w-full">
                     <Progress value={((scaleIndex + 1) / PREMIUM_QUESTIONS.length) * 100} className="w-full h-2" />
                     <div className="flex items-center justify-between w-full mt-2">
                       <span className="text-xs font-medium text-slate-400">Q. {scaleIndex + 1}/{PREMIUM_QUESTIONS.length}</span>
                       <span className="text-xs text-blue-500 font-medium">{QUESTION_CATEGORIES[PREMIUM_QUESTIONS[scaleIndex]?.category]?.icon} {QUESTION_CATEGORIES[PREMIUM_QUESTIONS[scaleIndex]?.category]?.label}</span>
                     </div>
                   </div>
-                  <div className="w-10" />
                 </div>
                 <div className="space-y-8">
                   <h2 className="text-xl md:text-2xl font-bold text-slate-800 text-center">{PREMIUM_QUESTIONS[scaleIndex].text}</h2>
