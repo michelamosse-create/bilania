@@ -1,53 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/lib/stripe';
-import { createServiceClient } from '@/lib/supabase/server';
 
 export async function POST(req: NextRequest) {
-  const body = await req.text();
-  const signature = req.headers.get('stripe-signature')!;
+  const secret = process.env.STRIPE_WEBHOOK_SECRET;
+  const key = process.env.STRIPE_SECRET_KEY;
 
-  let event;
+  if (!secret || !key) {
+    return NextResponse.json({ received: true, note: 'Stripe not configured' });
+  }
+
   try {
-    event = stripe.webhooks.constructEvent(
-      body,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
-  } catch (error) {
-    console.error('Erreur signature webhook:', error);
-    return NextResponse.json({ error: 'Signature invalide' }, { status: 400 });
-  }
+    const { default: Stripe } = await import('stripe');
+    const stripe = new Stripe(key, { apiVersion: '2026-04-22.dahlia' as any });
 
-  if (event.type === 'checkout.session.completed') {
-    const session = event.data.object;
-    const email = session.customer_email || session.metadata?.email;
+    const body = await req.text();
+    const signature = req.headers.get('stripe-signature')!;
 
-    if (email) {
-      const supabase = await createServiceClient();
+    const event = stripe.webhooks.constructEvent(body, signature, secret);
 
-      // Créer ou récupérer l'utilisateur
-      const { data: existingUser } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('email', email)
-        .single();
-
-      if (!existingUser) {
-        // Créer le profil (l'utilisateur créera son compte plus tard)
-        await supabase.from('profiles').insert({
-          email,
-          stripe_customer_id: session.customer as string,
-          tier: 'premium',
-          status: 'active',
-        });
-      } else {
-        await supabase
-          .from('profiles')
-          .update({ tier: 'premium', status: 'active' })
-          .eq('id', existingUser.id);
-      }
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      const email = session.customer_email || (session as any).metadata?.email;
+      console.log(`Paiement réussi pour: ${email}`);
     }
-  }
 
-  return NextResponse.json({ received: true });
+    return NextResponse.json({ received: true });
+  } catch (error: any) {
+    console.error('Webhook error:', error.message);
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
 }
