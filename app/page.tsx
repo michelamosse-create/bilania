@@ -128,17 +128,17 @@ export default function Home() {
               </h2>
               <div className="space-y-4 text-slate-600">
                 <p className="leading-relaxed">
-                  <strong className="text-slate-900">70% des reconversions échouent</strong> par manque de préparation.
+                  <strong className="text-slate-900">70% des reconversions échouent</strong>{" "}par manque de préparation.
                   Un bilan de compétences vous permet d&apos;éviter les erreurs coûteuses : choisir un métier qui ne vous correspond pas,
                   vous inscrire à une formation inadaptée, ou perdre du temps dans une voie sans débouchés.
                 </p>
                 <p className="leading-relaxed">
-                  <strong className="text-slate-900">Connaître ses forces et ses motivations profondes</strong> est la première étape.
+                  <strong className="text-slate-900">Connaître ses forces et ses motivations profondes</strong>{" "}est la première étape.
                   Trop de personnes choisissent un métier sur un coup de tête ou parce que &ldquo;ça recrute&rdquo;, sans se demander
                   si ce métier correspond vraiment à leur personnalité, leurs valeurs et leur style de travail.
                 </p>
                 <p className="leading-relaxed">
-                  <strong className="text-slate-900">Un bilan de compétences traditionnel coûte entre 200€ et 2000€</strong> et prend
+                  <strong className="text-slate-900">Un bilan de compétences traditionnel coûte entre 200€ et 2000€</strong>{" "}et prend
                   plusieurs semaines. BilanIA vous donne l&apos;essentiel en 5 minutes pour 0€, et une analyse complète
                   pour 9,90€ — soit 20 à 50 fois moins cher qu&apos;un cabinet classique.
                 </p>

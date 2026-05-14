@@ -2,12 +2,26 @@ import { NextRequest, NextResponse } from 'next/server';
 import { analyzeWithAI } from '@/lib/ai';
 import { ALL_QUESTIONS, OPEN_ENDED_QUESTIONS, EXTENDED_OPEN_QUESTIONS } from '@/constants/questions';
 
+function fixSpacing(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/\*\*/g, '') // remove markdown bold
+    .replace(/([a-zà-ü])\.([A-ZÀ-Ü])/g, '$1. $2') // add space after period
+    .replace(/([a-zà-ü]),([A-ZÀ-Ü])/g, '$1, $2') // add space after comma
+    .replace(/([a-zà-ü])([A-ZÀ-Ü])/g, '$1 $2') // add space between lowercase-uppercase
+    .replace(/\s+/g, ' ') // normalize spaces
+    .trim();
+}
+
 function validateReport(report: any) {
   const clamp = (v: number, min: number, max: number, fallback: number) =>
     isNaN(v) || v < min || v > max ? fallback : Math.round(v);
 
   return {
-    ...report,
+    summary: fixSpacing(report?.summary || ''),
+    profileType: fixSpacing(report?.profileType || 'Analyste'),
+    strengths: (report?.strengths || []).map(fixSpacing),
+    areasForImprovement: (report?.areasForImprovement || []).map(fixSpacing),
     bigFive: {
       openness: clamp(report?.bigFive?.openness, 0, 100, 60),
       conscientiousness: clamp(report?.bigFive?.conscientiousness, 0, 100, 65),
@@ -16,15 +30,15 @@ function validateReport(report: any) {
       neuroticism: clamp(report?.bigFive?.neuroticism, 0, 100, 35),
     },
     careerSuggestions: (report?.careerSuggestions || []).slice(0, 5).map((c: any, i: number) => ({
-      title: c.title || `Métier ${i + 1}`,
-      description: c.description || '',
-      relevance: c.relevance || 'Élevée',
-      salary_range: c.salary_range || '30k€-50k€',
+      title: fixSpacing(c.title || `Métier ${i + 1}`),
+      description: fixSpacing(c.description || ''),
+      relevance: fixSpacing(c.relevance || 'Élevée'),
+      salary_range: fixSpacing(c.salary_range || '30k€-50k€'),
       trend: ['Forte croissance', 'Croissance', 'Stable', 'En transformation', 'En déclin'].includes(c.trend) ? c.trend : 'Croissance',
       matchingScore: clamp(c.matchingScore, 50, 100, 85 - i * 5),
       rome: (c.rome || 'M1805').toUpperCase().match(/^[A-Z]\d{4}$/) ? c.rome.toUpperCase() : 'M1805',
-      skillsMatch: (c.skillsMatch || []).slice(0, 4),
-      formationPath: c.formationPath || '',
+      skillsMatch: (c.skillsMatch || []).slice(0, 4).map(fixSpacing),
+      formationPath: fixSpacing(c.formationPath || ''),
     })),
     cpfFormations: (report?.cpfFormations || []).slice(0, 3).map((f: any, i: number) => {
       const rs = (f.rsCode || 'RS1234').toUpperCase().replace(/[^A-Z0-9]/g, '').match(/^RS\d{4}$/) ? f.rsCode : 'RS1234';
@@ -34,23 +48,23 @@ function validateReport(report: any) {
       if (duree.length > 30) duree = duree.substring(0, 30);
       let cout = clamp(f.cost ? parseInt(f.cost) : 3000, 0, 15000, 3000);
       return {
-        title: f.title || `Formation ${i + 1}`,
-        provider: f.provider || 'Organisme certifié',
-        duration: duree,
+        title: fixSpacing(f.title || `Formation ${i + 1}`),
+        provider: fixSpacing(f.provider || 'Organisme certifié'),
+        duration: fixSpacing(duree),
         cost: `${cout} €`,
         eligibleCPF: true,
         matchingScore: clamp(f.matchingScore, 50, 100, 85 - i * 5),
         rsCode: rs,
         url: f.url || `https://www.francecompetences.fr/recherche/?query=${rs}`,
-        description: f.description || '',
+        description: fixSpacing(f.description || ''),
       };
     }),
     planAction: (report?.planAction || []).slice(0, 5).map((a: any, i: number) => {
-      if (typeof a === 'string') return { semaine: (i + 1) * 2, action: a, ressource: '' };
+      if (typeof a === 'string') return { semaine: (i + 1) * 2, action: fixSpacing(a), ressource: '' };
       return {
         semaine: clamp(a.semaine || a.week, 1, 52, (i + 1) * 2),
-        action: a.action || `Étape ${i + 1}`,
-        ressource: a.ressource || a.ressource || '',
+        action: fixSpacing(a.action || `Étape ${i + 1}`),
+        ressource: fixSpacing(a.ressource || a.ressource || ''),
       };
     }),
   };
