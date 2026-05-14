@@ -353,10 +353,10 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { value: "40", label: "Bilan de\ncompétences" },
-              { value: "20", label: "Questions\npsychologiques" },
-              { value: "110", label: "Questions\ntotal Premium" },
-              { value: "10", label: "Domaines\nanalysés" },
+              { value: "165", label: "Questions\nbilan complet" },
+              { value: "12", label: "Questions\nrédactionnelles" },
+              { value: "50", label: "Questions\nnumériques" },
+              { value: "12", label: "Archétypes\nde personnalité" },
             ].map((stat, i) => (
               <div key={i}>
                 <div className="text-3xl font-bold text-blue-600">{stat.value}</div>
@@ -419,7 +419,7 @@ export default function Home() {
                   9,90 €
                   <span className="text-sm font-normal text-slate-400 ml-2">paiement unique</span>
                 </div>
-                <p className="text-slate-500 text-sm mb-6">Bilan complet 110 questions + CV + Formations CPF</p>
+                <p className="text-slate-500 text-sm mb-6">Bilan complet 165 questions + 12 rédactionnelles + CV + Formations CPF</p>
                 <ul className="space-y-3 mb-8">
                   {[
                     "Bilan de compétences intégral (40 questions)",

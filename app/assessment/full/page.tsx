@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { PREMIUM_QUESTIONS, FREE_QUESTIONS, QUESTION_CATEGORIES, OPEN_ENDED_QUESTIONS } from "@/constants/questions";
+import { PREMIUM_QUESTIONS, FREE_QUESTIONS, QUESTION_CATEGORIES, OPEN_ENDED_QUESTIONS, EXTENDED_OPEN_QUESTIONS } from "@/constants/questions";
 import { createClient } from "@/lib/supabase/client";
 
 const RESULT_KEY = "bilania_free_result";
@@ -88,6 +88,9 @@ export default function FullAssessmentPage() {
   if (checking) return <div className="min-h-screen flex items-center justify-center"><div className="w-24 h-24 border-4 border-blue-100 border-t-blue-600 rounded-full animate-spin" /></div>;
   if (!isAuthorized) return null;
 
+  const allOpen = [...OPEN_ENDED_QUESTIONS, ...EXTENDED_OPEN_QUESTIONS];
+  const totalOpen = allOpen.length;
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
       <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
@@ -143,22 +146,22 @@ export default function FullAssessmentPage() {
                   <div className="w-10" />
                   <div className="flex flex-col items-center flex-grow">
                     <Progress value={((openIndex + 1) / OPEN_ENDED_QUESTIONS.length) * 100} className="w-full h-2" />
-                    <span className="text-xs font-medium text-slate-400 mt-2">Question ouverte {openIndex + 1}/{OPEN_ENDED_QUESTIONS.length}</span>
+                    <span className="text-xs font-medium text-slate-400 mt-2">Question ouverte {openIndex + 1}/{totalOpen}</span>
                   </div>
                   <Badge className="bg-purple-100 text-purple-700 border-purple-200 shrink-0"><MessageSquare className="w-3 h-3 mr-1" /> Rédaction</Badge>
                 </div>
                 <div className="space-y-6">
-                  <h2 className="text-xl font-bold text-slate-800 text-center">{OPEN_ENDED_QUESTIONS[openIndex].text}</h2>
+                  <h2 className="text-xl font-bold text-slate-800 text-center">{allOpen[openIndex].text}</h2>
                   <textarea
-                    value={openAnswers[OPEN_ENDED_QUESTIONS[openIndex].id] || ''}
-                    onChange={(e) => setOpenAnswers(prev => ({ ...prev, [OPEN_ENDED_QUESTIONS[openIndex].id]: e.target.value }))}
-                    placeholder={OPEN_ENDED_QUESTIONS[openIndex].placeholder}
+                    value={openAnswers[allOpen[openIndex].id] || ''}
+                    onChange={(e) => setOpenAnswers(prev => ({ ...prev, [allOpen[openIndex].id]: e.target.value }))}
+                    placeholder={allOpen[openIndex].placeholder}
                     className="w-full h-40 p-4 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none resize-none text-slate-700"
                   />
                   <div className="flex justify-center gap-4">
                     {openIndex > 0 && <Button variant="outline" onClick={() => setOpenIndex(i => i - 1)} className="rounded-full"><ChevronLeft className="w-4 h-4 mr-1" /> Précédent</Button>}
-                    <Button onClick={() => openIndex < OPEN_ENDED_QUESTIONS.length - 1 ? setOpenIndex(i => i + 1) : setStep('scale')} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8">
-                      {openIndex < OPEN_ENDED_QUESTIONS.length - 1 ? <>Suivant <ChevronRight className="w-4 h-4 ml-2" /></> : <>Commencer le questionnaire <ChevronRight className="w-4 h-4 ml-2" /></>}
+                    <Button onClick={() => openIndex < totalOpen - 1 ? setOpenIndex(i => i + 1) : setStep('scale')} className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-8">
+                      {openIndex < totalOpen - 1 ? <>Suivant <ChevronRight className="w-4 h-4 ml-2" /></> : <>Commencer le questionnaire <ChevronRight className="w-4 h-4 ml-2" /></>}
                     </Button>
                   </div>
                 </div>

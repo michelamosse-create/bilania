@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { analyzeWithAI } from '@/lib/ai';
-import { ALL_QUESTIONS, OPEN_ENDED_QUESTIONS } from '@/constants/questions';
+import { ALL_QUESTIONS, OPEN_ENDED_QUESTIONS, EXTENDED_OPEN_QUESTIONS } from '@/constants/questions';
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,9 +12,10 @@ export async function POST(req: NextRequest) {
 
     const compact = ALL_QUESTIONS.map((q) => ({ id: q.id, cat: q.category, v: answers[q.id] }));
 
+    const allOpenQuestions = [...OPEN_ENDED_QUESTIONS, ...EXTENDED_OPEN_QUESTIONS];
     const openSection = openAnswers ? `
 RÉPONSES AUX QUESTIONS RÉDACTIONNELLES (texte libre):
-${OPEN_ENDED_QUESTIONS.map(q => `[${q.id}] ${q.text}\nRÉPONSE: ${openAnswers[q.id] || 'Pas de réponse'}\n`).join('\n')}` : '';
+${allOpenQuestions.map(q => `[${q.id}] ${q.text}\nRÉPONSE: ${openAnswers[q.id] || 'Pas de réponse'}\n`).join('\n')}` : '';
 
     const cvSection = cvText ? `
 CV DU CANDIDAT (texte extrait):

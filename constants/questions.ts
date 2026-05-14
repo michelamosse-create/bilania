@@ -1,4 +1,7 @@
-import { Question } from '@/types';
+import { Question, OpenQuestion } from '@/types';
+import { ALL_EXTENDED_QUESTIONS, EXTENDED_OPEN_QUESTIONS } from './questions-extended';
+
+export { EXTENDED_OPEN_QUESTIONS };
 
 // ============================================================
 // PARTIE 1 — Compétences transverses (questions existantes + enrichies)
@@ -499,13 +502,6 @@ export const ENVIRONMENT_QUESTIONS: Question[] = [
 // ============================================================
 // PARTIE 1.5 — Questions rédactionnelles (Premium)
 // ============================================================
-
-export interface OpenQuestion {
-  id: string;
-  category: 'open_ended';
-  text: string;
-  placeholder: string;
-}
 
 export const OPEN_ENDED_QUESTIONS: OpenQuestion[] = [
   {
@@ -1452,6 +1448,7 @@ export const TECH_QUESTIONS: Question[] = [
 export const ALL_QUESTIONS: Question[] = [
   ...PURE_SKILLS_QUESTIONS,
   ...PSYCHO_QUESTIONS,
+  ...ALL_EXTENDED_QUESTIONS,
   ...TECH_QUESTIONS,
 ];
 
@@ -1471,9 +1468,11 @@ export const FREE_QUESTIONS: Question[] = [
   ENVIRONMENT_QUESTIONS[4], // rhythm_1 - rythme
 ];
 
-// Questions premium = tout le bilan pur (les non-gratuites) + tout le bilan technologique
+// Questions premium = bilan pur (non-gratuites) + psycho + extended + technologique
 export const PREMIUM_QUESTIONS: Question[] = [
   ...PURE_SKILLS_QUESTIONS.filter((q) => !FREE_QUESTIONS.find((fq) => fq.id === q.id)),
+  ...PSYCHO_QUESTIONS,
+  ...ALL_EXTENDED_QUESTIONS,
   ...TECH_QUESTIONS,
 ];
 

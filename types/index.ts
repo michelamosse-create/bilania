@@ -6,7 +6,14 @@ export interface Question {
 }
 
 export interface UserAnswers {
-  [questionId: string]: number | string; // number for scale, string for open-ended
+  [questionId: string]: number | string;
+}
+
+export interface OpenQuestion {
+  id: string;
+  category: 'open_ended';
+  text: string;
+  placeholder: string;
 }
 
 export interface BigFive {
