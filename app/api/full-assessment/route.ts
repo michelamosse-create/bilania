@@ -29,7 +29,7 @@ function validateReport(report: any) {
       agreeableness: clamp(report?.bigFive?.agreeableness, 0, 100, 60),
       neuroticism: clamp(report?.bigFive?.neuroticism, 0, 100, 35),
     },
-    careerSuggestions: (report?.careerSuggestions || []).slice(0, 5).map((c: any, i: number) => ({
+    careerSuggestions: (Array.isArray(report?.careerSuggestions) ? report.careerSuggestions.slice(0, 5) : []).map((c: any, i: number) => ({
       title: fixSpacing(c.title || `Métier ${i + 1}`),
       description: fixSpacing(c.description || ''),
       relevance: fixSpacing(c.relevance || 'Élevée'),
@@ -37,10 +37,10 @@ function validateReport(report: any) {
       trend: ['Forte croissance', 'Croissance', 'Stable', 'En transformation', 'En déclin'].includes(c.trend) ? c.trend : 'Croissance',
       matchingScore: clamp(c.matchingScore, 50, 100, 85 - i * 5),
       rome: (c.rome || 'M1805').toUpperCase().match(/^[A-Z]\d{4}$/) ? c.rome.toUpperCase() : 'M1805',
-      skillsMatch: (c.skillsMatch || []).slice(0, 4).map(fixSpacing),
+      skillsMatch: Array.isArray(c.skillsMatch) ? c.skillsMatch.slice(0, 4).map(fixSpacing) : (typeof c.skillsMatch === 'string' ? c.skillsMatch.split(',').slice(0, 4).map(fixSpacing) : []),
       formationPath: fixSpacing(c.formationPath || ''),
     })),
-    cpfFormations: (report?.cpfFormations || []).slice(0, 3).map((f: any, i: number) => {
+    cpfFormations: (Array.isArray(report?.cpfFormations) ? report.cpfFormations.slice(0, 3) : []).map((f: any, i: number) => {
       const rs = (f.rsCode || 'RS1234').toUpperCase().replace(/[^A-Z0-9]/g, '').match(/^RS\d{4}$/) ? f.rsCode : 'RS1234';
       let duree = f.duration || '6 mois';
       const mois = parseInt(duree);
@@ -59,7 +59,24 @@ function validateReport(report: any) {
         description: fixSpacing(f.description || ''),
       };
     }),
-    planAction: (report?.planAction || []).slice(0, 5).map((a: any, i: number) => {
+    riasec: {
+      realistic: clamp(report?.riasec?.realistic, 0, 100, 50),
+      investigative: clamp(report?.riasec?.investigative, 0, 100, 65),
+      artistic: clamp(report?.riasec?.artistic, 0, 100, 40),
+      social: clamp(report?.riasec?.social, 0, 100, 55),
+      enterprising: clamp(report?.riasec?.enterprising, 0, 100, 50),
+      conventional: clamp(report?.riasec?.conventional, 0, 100, 60),
+    },
+    digitalAffinity: report?.digitalAffinity || 'intermediate',
+    domainScores: (Array.isArray(report?.domainScores) ? report.domainScores.slice(0, 10) : []).map((d: any) => ({
+      domain: d.domain || '',
+      label: fixSpacing(d.label || 'Domaine'),
+      score: clamp(d.score || d.valeur, 1, 5, 3),
+      maxScore: 5,
+      interpretation: fixSpacing(d.interpretation || d.commentaire || ''),
+    })),
+    skillsRadarData: Array.isArray(report?.skillsRadarData) ? report.skillsRadarData.slice(0, 5) : [],
+    planAction: (Array.isArray(report?.planAction) ? report.planAction.slice(0, 5) : []).map((a: any, i: number) => {
       if (typeof a === 'string') return { semaine: (i + 1) * 2, action: fixSpacing(a), ressource: '' };
       return {
         semaine: clamp(a.semaine || a.week, 1, 52, (i + 1) * 2),

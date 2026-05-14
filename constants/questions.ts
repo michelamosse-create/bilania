@@ -37,11 +37,11 @@ export const SOFT_SKILLS_QUESTIONS: Question[] = [
     category: 'soft_skills',
     text: "Comment gérez-vous un désaccord au sein d'une équipe ?",
     options: [
-      { value: 1, label: "Je l'évite complètement" },
-      { value: 2, label: "Je fais des concessions" },
-      { value: 3, label: "Je cherche un compromis" },
-      { value: 4, label: "Je facilite le dialogue" },
-      { value: 5, label: "Je transforme le conflit en opportunité" },
+      { value: 1, label: "Évitement complet" },
+      { value: 2, label: "Concessions" },
+      { value: 3, label: "Recherche de compromis" },
+      { value: 4, label: "Facilitation du dialogue" },
+      { value: 5, label: "Transformation en opportunité" },
     ]
   },
   {
@@ -85,11 +85,11 @@ export const SOFT_SKILLS_QUESTIONS: Question[] = [
     category: 'soft_skills',
     text: "Face à un problème inédit, faites-vous preuve de créativité pour trouver une solution ?",
     options: [
-      { value: 1, label: "Je bloque rapidement" },
-      { value: 2, label: "Je cherche des solutions connues" },
-      { value: 3, label: "J'explore différentes pistes" },
-      { value: 4, label: "Je propose des idées originales" },
-      { value: 5, label: "L'innovation est ma marque de fabrique" },
+      { value: 1, label: "Blocage rapide" },
+      { value: 2, label: "Recherche de solutions connues" },
+      { value: 3, label: "Exploration de pistes" },
+      { value: 4, label: "Propositions originales" },
+      { value: 5, label: "Innovation systématique" },
     ]
   },
   {
@@ -97,11 +97,11 @@ export const SOFT_SKILLS_QUESTIONS: Question[] = [
     category: 'soft_skills',
     text: "Comment gérez-vous la pression et les délais serrés ?",
     options: [
-      { value: 1, label: "Je suis complètement dépassé" },
-      { value: 2, label: "Je deviens anxieux mais je tiens" },
-      { value: 3, label: "Je m'organise pour faire face" },
-      { value: 4, label: "Je reste efficace sous pression" },
-      { value: 5, label: "La pression me motive et me transcende" },
+      { value: 1, label: "Complètement dépassé" },
+      { value: 2, label: "Anxieux mais résistant" },
+      { value: 3, label: "Organisation pour faire face" },
+      { value: 4, label: "Efficace sous pression" },
+      { value: 5, label: "Motivé et transcendé" },
     ]
   },
   {
@@ -208,11 +208,11 @@ export const HARD_SKILLS_QUESTIONS: Question[] = [
     category: 'hard_skills',
     text: "Comment organisez-vous votre travail au quotidien ?",
     options: [
-      { value: 1, label: "Je fonctionne au feeling" },
-      { value: 2, label: "J'utilise une simple to-do list" },
-      { value: 3, label: "J'utilise des outils numériques (calendrier, tâches)" },
-      { value: 4, label: "J'ai une méthode structurée (priorisation, timeboxing)" },
-      { value: 5, label: "J'optimise constamment mes process d'organisation" },
+      { value: 1, label: "Au feeling" },
+      { value: 2, label: "To-do list simple" },
+      { value: 3, label: "Outils numériques" },
+      { value: 4, label: "Méthode structurée" },
+      { value: 5, label: "Optimisation continue" },
     ]
   },
   {
@@ -232,11 +232,11 @@ export const HARD_SKILLS_QUESTIONS: Question[] = [
     category: 'hard_skills',
     text: "Quel est votre niveau en rédaction professionnelle (rapports, propositions, synthèses) ?",
     options: [
-      { value: 1, label: "Je rédige le strict minimum" },
-      { value: 2, label: "Je rédige des textes simples" },
-      { value: 3, label: "Je produis des documents structurés" },
-      { value: 4, label: "Mes écrits sont souvent cités en exemple" },
-      { value: 5, label: "La rédaction est un atout majeur de mon profil" },
+      { value: 1, label: "Strict minimum" },
+      { value: 2, label: "Textes simples" },
+      { value: 3, label: "Documents structurés" },
+      { value: 4, label: "Écrits cités en exemple" },
+      { value: 5, label: "Atout majeur" },
     ]
   },
   {
@@ -283,11 +283,11 @@ export const VALUES_QUESTIONS: Question[] = [
     category: 'values',
     text: "L'autonomie dans votre travail est-elle importante pour vous ?",
     options: [
-      { value: 1, label: "Je préfère être guidé" },
-      { value: 2, label: "Un peu d'autonomie me va" },
-      { value: 3, label: "L'autonomie est importante" },
+      { value: 1, label: "Préfère être guidé" },
+      { value: 2, label: "Un peu d'autonomie" },
+      { value: 3, label: "Autonomie importante" },
       { value: 4, label: "Très importante" },
-      { value: 5, label: "Je ne travaille qu'en autonomie" },
+      { value: 5, label: "Autonomie exclusive" },
     ]
   },
   {
@@ -319,11 +319,11 @@ export const VALUES_QUESTIONS: Question[] = [
     category: 'values',
     text: "La possibilité de progresser et d'évoluer est-elle cruciale pour vous ?",
     options: [
-      { value: 1, label: "Je suis satisfait sans progression" },
+      { value: 1, label: "Satisfait sans progression" },
       { value: 2, label: "C'est un plus" },
       { value: 3, label: "C'est important" },
       { value: 4, label: "Très important" },
-      { value: 5, label: "Je ne conçois pas un emploi sans évolution" },
+      { value: 5, label: "Évolution indispensable" },
     ]
   },
   {
@@ -331,11 +331,11 @@ export const VALUES_QUESTIONS: Question[] = [
     category: 'values',
     text: "Avez-vous besoin de trouver du sens dans votre travail ?",
     options: [
-      { value: 1, label: "Non, un travail c'est un travail" },
-      { value: 2, label: "Un peu, mais ce n'est pas essentiel" },
+      { value: 1, label: "Aucun besoin de sens" },
+      { value: 2, label: "Peu essentiel" },
       { value: 3, label: "C'est assez important" },
       { value: 4, label: "Très important" },
-      { value: 5, label: "Je ne peux pas travailler sans sens" },
+      { value: 5, label: "Sens indispensable" },
     ]
   },
   {
@@ -355,11 +355,11 @@ export const VALUES_QUESTIONS: Question[] = [
     category: 'values',
     text: "Recherchez-vous des défis stimulants ou préférez-vous la maîtrise de votre zone de confort ?",
     options: [
-      { value: 1, label: "Je préfère largement ma zone de confort" },
+      { value: 1, label: "Zone de confort privilégiée" },
       { value: 2, label: "Plutôt zone de confort" },
       { value: 3, label: "Un équilibre entre les deux" },
       { value: 4, label: "Je cherche régulièrement des défis" },
-      { value: 5, label: "Je ne vis que pour les défis" },
+      { value: 5, label: "Défis permanents" },
     ]
   },
   {
@@ -367,11 +367,11 @@ export const VALUES_QUESTIONS: Question[] = [
     category: 'values',
     text: "L'éthique et les valeurs de l'entreprise qui vous emploie sont-elles importantes ?",
     options: [
-      { value: 1, label: "Peu importe, tant que le salaire suit" },
-      { value: 2, label: "Je regarde un peu" },
+      { value: 1, label: "Salaire avant tout" },
+      { value: 2, label: "Regard superficiel" },
       { value: 3, label: "C'est un critère parmi d'autres" },
-      { value: 4, label: "Très important, je veux être fier de mon employeur" },
-      { value: 5, label: "Je refuse de travailler pour une entreprise sans éthique" },
+      { value: 4, label: "Fierté de l'employeur" },
+      { value: 5, label: "Éthique indispensable" },
     ]
   },
 ];
@@ -406,11 +406,11 @@ export const ENVIRONMENT_QUESTIONS: Question[] = [
     category: 'environment',
     text: "Quel est votre rapport au télétravail ?",
     options: [
-      { value: 1, label: "Je ne veux pas télétravailler" },
+      { value: 1, label: "Refus du télétravail" },
       { value: 2, label: "1 jour par semaine me suffirait" },
       { value: 3, label: "2-3 jours par semaine" },
       { value: 4, label: "Full remote accepté" },
-      { value: 5, label: "Je préfère le full remote" },
+      { value: 5, label: "Full remote privilégié" },
     ]
   },
   {
@@ -478,7 +478,7 @@ export const ENVIRONMENT_QUESTIONS: Question[] = [
     category: 'environment',
     text: "Quel est votre rapport aux déplacements professionnels ?",
     options: [
-      { value: 1, label: "Je refuse tout déplacement" },
+      { value: 1, label: "Refus total" },
       { value: 2, label: "Occasionnels et courts" },
       { value: 3, label: "Réguliers dans la région" },
       { value: 4, label: "Nationaux acceptés" },
@@ -805,11 +805,11 @@ export const DIGITAL_CULTURE_QUESTIONS: Question[] = [
     category: 'digital_culture',
     text: "Utilisez-vous des outils collaboratifs en ligne (Google Workspace, Notion, Slack, Trello, Teams, etc.) ?",
     options: [
-      { value: 1, label: "Je ne les connais pas" },
+      { value: 1, label: "Aucune connaissance" },
       { value: 2, label: "J'en utilise 1 occasionnellement" },
       { value: 3, label: "J'en utilise plusieurs régulièrement" },
-      { value: 4, label: "Je maîtrise la plupart d'entre eux" },
-      { value: 5, label: "Je les utilise tous et je forme les autres" },
+      { value: 4, label: "Maîtrise avancée" },
+      { value: 5, label: "Expert, forme les autres" },
     ]
   },
   {
@@ -817,11 +817,11 @@ export const DIGITAL_CULTURE_QUESTIONS: Question[] = [
     category: 'digital_culture',
     text: "Comment gérez-vous la sécurité de vos données numériques (mots de passe, sauvegardes, phishing) ?",
     options: [
-      { value: 1, label: "Je ne fais pas attention" },
+      { value: 1, label: "Aucune attention" },
       { value: 2, label: "J'utilise les mêmes mots de passe partout" },
       { value: 3, label: "J'ai quelques bonnes pratiques" },
       { value: 4, label: "J'applique les règles essentielles" },
-      { value: 5, label: "C'est une priorité, j'utilise un gestionnaire + 2FA" },
+      { value: 5, label: "Priorité absolue" },
     ]
   },
   {
@@ -829,11 +829,11 @@ export const DIGITAL_CULTURE_QUESTIONS: Question[] = [
     category: 'digital_culture',
     text: "Savez-vous ce qu'est le Cloud et à quoi il sert ?",
     options: [
-      { value: 1, label: "Je ne sais pas ce que c'est" },
-      { value: 2, label: "J'en ai entendu parler" },
+      { value: 1, label: "Aucune connaissance" },
+      { value: 2, label: "Connaissance vague" },
       { value: 3, label: "J'utilise des services cloud (Drive, iCloud, Dropbox)" },
-      { value: 4, label: "Je comprends les différences (IaaS, SaaS, PaaS)" },
-      { value: 5, label: "J'ai déjà déployé un projet sur le cloud" },
+      { value: 4, label: "Bonne compréhension" },
+      { value: 5, label: "Expérience pratique" },
     ]
   },
   {
@@ -877,11 +877,11 @@ export const DIGITAL_CULTURE_QUESTIONS: Question[] = [
     category: 'digital_culture',
     text: "Comment résolvez-vous un problème informatique inconnu ?",
     options: [
-      { value: 1, label: "Je demande à quelqu'un directement" },
-      { value: 2, label: "Je cherche sur Google" },
-      { value: 3, label: "Je cherche sur des forums spécialisés" },
-      { value: 4, label: "Je lis la documentation officielle" },
-      { value: 5, label: "Je débug moi-même avec des outils appropriés" },
+      { value: 1, label: "Demande d'aide directe" },
+      { value: 2, label: "Recherche Google" },
+      { value: 3, label: "Forums spécialisés" },
+      { value: 4, label: "Documentation officielle" },
+      { value: 5, label: "Débug autonome" },
     ]
   },
   {
@@ -889,11 +889,11 @@ export const DIGITAL_CULTURE_QUESTIONS: Question[] = [
     category: 'digital_culture',
     text: "Quel est votre rapport aux mises à jour logicielles et nouvelles versions ?",
     options: [
-      { value: 1, label: "Je les évite tant que possible" },
-      { value: 2, label: "Je les fais quand on m'y oblige" },
-      { value: 3, label: "Je les fais régulièrement" },
-      { value: 4, label: "Je les installe dès leur sortie" },
-      { value: 5, label: "Je suis les beta/early access" },
+      { value: 1, label: "Évitement maximal" },
+      { value: 2, label: "Uniquement si obligé" },
+      { value: 3, label: "Mises à jour régulières" },
+      { value: 4, label: "Installation immédiate" },
+      { value: 5, label: "Beta/early access" },
     ]
   },
 ];
@@ -953,7 +953,7 @@ export const AI_KNOWLEDGE_QUESTIONS: Question[] = [
     text: "Savez-vous ce qu'est le prompt engineering ?",
     options: [
       { value: 1, label: "Jamais entendu parler" },
-      { value: 2, label: "J'en ai entendu parler" },
+      { value: 2, label: "Connaissance vague" },
       { value: 3, label: "Je comprends le concept" },
       { value: 4, label: "Je pratique régulièrement" },
       { value: 5, label: "C'est l'une de mes compétences clés" },
@@ -989,7 +989,7 @@ export const AI_KNOWLEDGE_QUESTIONS: Question[] = [
     text: "Connaissez-vous les enjeux éthiques liés à l'IA (RGPD, AI Act, transparence) ?",
     options: [
       { value: 1, label: "Aucune connaissance" },
-      { value: 2, label: "J'en ai entendu parler" },
+      { value: 2, label: "Connaissance vague" },
       { value: 3, label: "Je connais les principaux enjeux" },
       { value: 4, label: "Je suis bien informé" },
       { value: 5, label: "C'est un sujet que je maîtrise" },
@@ -1013,7 +1013,7 @@ export const AI_KNOWLEDGE_QUESTIONS: Question[] = [
     text: "Connaissez-vous les modèles d'IA open source (Llama, Mistral, Stable Diffusion) ?",
     options: [
       { value: 1, label: "Aucun" },
-      { value: 2, label: "J'en ai entendu parler" },
+      { value: 2, label: "Connaissance vague" },
       { value: 3, label: "J'en connais quelques-uns" },
       { value: 4, label: "J'en ai déjà utilisé" },
       { value: 5, label: "Je les utilise régulièrement" },
@@ -1162,8 +1162,8 @@ export const PROGRAMMING_QUESTIONS: Question[] = [
     category: 'programming',
     text: "Utilisez-vous des outils no-code ou low-code (Make, Zapier, Bubble, Airtable, n8n) ?",
     options: [
-      { value: 1, label: "Je ne les connais pas" },
-      { value: 2, label: "J'en ai entendu parler" },
+      { value: 1, label: "Aucune connaissance" },
+      { value: 2, label: "Connaissance vague" },
       { value: 3, label: "J'en ai utilisé un ou deux" },
       { value: 4, label: "J'en utilise plusieurs régulièrement" },
       { value: 5, label: "Je construis des solutions complexes avec" },
@@ -1324,11 +1324,11 @@ export const LEARNING_ADAPTABILITY_QUESTIONS: Question[] = [
     category: 'learning_adaptability',
     text: "Comment apprenez-vous de nouvelles compétences par vous-même ?",
     options: [
-      { value: 1, label: "J'ai besoin d'un cadre formel" },
-      { value: 2, label: "Je suis des tutoriels guidés" },
-      { value: 3, label: "J'alterne entre guidé et autodidacte" },
-      { value: 4, label: "Majoritairement en autodidacte" },
-      { value: 5, label: "100% autodidacte, je crée mes propres projets" },
+      { value: 1, label: "Cadre formel nécessaire" },
+      { value: 2, label: "Tutoriels guidés" },
+      { value: 3, label: "Alternance guidé/autodidacte" },
+      { value: 4, label: "Majorité autodidacte" },
+      { value: 5, label: "100% autodidacte" },
     ]
   },
   {
@@ -1348,11 +1348,11 @@ export const LEARNING_ADAPTABILITY_QUESTIONS: Question[] = [
     category: 'learning_adaptability',
     text: "Face à un nouveau logiciel ou outil, comment réagissez-vous ?",
     options: [
-      { value: 1, label: "Je stress et j'évite" },
-      { value: 2, label: "J'ai besoin d'une formation" },
-      { value: 3, label: "J'explore avec un guide" },
-      { value: 4, label: "J'explore par moi-même" },
-      { value: 5, label: "Je plonge directement et je comprends vite" },
+      { value: 1, label: "Stress et évitement" },
+      { value: 2, label: "Formation nécessaire" },
+      { value: 3, label: "Exploration guidée" },
+      { value: 4, label: "Exploration autonome" },
+      { value: 5, label: "Immersion rapide" },
     ]
   },
   {
@@ -1408,11 +1408,11 @@ export const LEARNING_ADAPTABILITY_QUESTIONS: Question[] = [
     category: 'learning_adaptability',
     text: "Comment réagissez-vous face à l'échec ou à un bug que vous n'arrivez pas à résoudre ?",
     options: [
-      { value: 1, label: "J'abandonne" },
-      { value: 2, label: "Je demande de l'aide immédiatement" },
-      { value: 3, label: "Je persévère un peu puis je demande" },
-      { value: 4, label: "Je persévère longtemps avant d'abandonner" },
-      { value: 5, label: "Je ne lâche jamais, c'est un défi motivant" },
+      { value: 1, label: "Abandon" },
+      { value: 2, label: "Aide immédiate" },
+      { value: 3, label: "Persévérance modérée" },
+      { value: 4, label: "Longue persévérance" },
+      { value: 5, label: "Défi motivant" },
     ]
   },
 ];
