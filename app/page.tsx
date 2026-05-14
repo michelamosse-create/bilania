@@ -286,21 +286,44 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Big centered radar */}
+          {/* Big centered radar — clean design */}
           <div className="flex justify-center mb-16">
             <div className="bg-white/5 backdrop-blur rounded-3xl p-8 border border-white/10 shadow-2xl">
-              <svg width="340" height="340" viewBox="0 0 200 200">
-                {[0.2,0.4,0.6,0.8].map(level => {
+              <div className="text-center text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Profil de personnalité — Big Five</div>
+              <svg width="380" height="380" viewBox="0 0 400 400">
+                {/* Axis lines */}
+                {[0,1,2,3,4].map(i => {
+                  const a = -Math.PI/2 + 2*Math.PI*i/5;
+                  return <line key={i} x1="200" y1="200" x2={200+150*Math.cos(a)} y2={200+150*Math.sin(a)} stroke="rgba(148,163,184,0.15)" strokeWidth="1"/>;
+                })}
+                {/* Concentric pentagons */}
+                {[0.25,0.5,0.75,1.0].map(level => {
                   const pts = [0,1,2,3,4].map(i => {
                     const a = -Math.PI/2 + 2*Math.PI*i/5;
-                    return `${100+85*level*Math.cos(a)},${100+85*level*Math.sin(a)}`;
+                    return `${200+140*level*Math.cos(a)},${200+140*level*Math.sin(a)}`;
                   }).join(' ');
-                  return <polygon key={level} points={pts} fill="none" stroke="rgba(148,163,184,0.15)" strokeWidth="0.5"/>;
+                  return <polygon key={level} points={pts} fill="none" stroke="rgba(148,163,184,0.12)" strokeWidth="1"/>;
                 })}
-                <polygon points={[0,1,2,3,4].map(i => {const a=-Math.PI/2+2*Math.PI*i/5;const r=[0.52,0.68,0.44,0.48,0.62][i];return `${100+85*r*Math.cos(a)},${100+85*r*Math.sin(a)}`;}).join(' ')} fill="rgba(59,130,246,0.2)" stroke="#3b82f6" strokeWidth="2"/>
-                {[0,1,2,3,4].map(i => {const a=-Math.PI/2+2*Math.PI*i/5;const r=[0.52,0.68,0.44,0.48,0.62][i];return <circle key={i} cx={100+85*r*Math.cos(a)} cy={100+85*r*Math.sin(a)} r="3" fill="#60a5fa"/>;})}
-                {['Ouverture','Rigueur','Extraversion','Agréabilité','Stabilité'].map((l,i)=>{const a=-Math.PI/2+2*Math.PI*i/5;return <text key={i} x={100+105*Math.cos(a)} y={100+105*Math.sin(a)} textAnchor="middle" dominantBaseline="central" fontSize="10" fill="#94a3b8" fontWeight="600">{l}</text>;})}
-                <text x="100" y="100" textAnchor="middle" dominantBaseline="central" fontSize="22" fontWeight="900" fill="white">Big Five</text>
+                {/* Data polygon */}
+                <polygon points={[0,1,2,3,4].map(i => {const a=-Math.PI/2+2*Math.PI*i/5;const r=[0.52,0.68,0.44,0.48,0.62][i];return `${200+140*r*Math.cos(a)},${200+140*r*Math.sin(a)}`;}).join(' ')} fill="rgba(59,130,246,0.15)" stroke="#3b82f6" strokeWidth="2.5"/>
+                {/* Data points */}
+                {[0,1,2,3,4].map(i => {const a=-Math.PI/2+2*Math.PI*i/5;const r=[0.52,0.68,0.44,0.48,0.62][i];return <circle key={i} cx={200+140*r*Math.cos(a)} cy={200+140*r*Math.sin(a)} r="4" fill="#3b82f6" stroke="white" strokeWidth="2"/>;})}
+                {/* Labels — outside the chart */}
+                {['Ouverture','Rigueur','Extraversion','Agréabilité','Stabilité'].map((l,i) => {
+                  const a = -Math.PI/2 + 2*Math.PI*i/5;
+                  const x = 200 + 175 * Math.cos(a);
+                  const y = 200 + 175 * Math.sin(a);
+                  const anchor = x < 180 ? 'end' : x > 220 ? 'start' : 'middle';
+                  return <text key={i} x={x} y={y} textAnchor={anchor} dominantBaseline="central" fontSize="13" fill="#cbd5e1" fontWeight="600">{l}</text>;
+                })}
+                {/* Score values at each point */}
+                {['52','68','44','48','62'].map((v,i) => {
+                  const a = -Math.PI/2 + 2*Math.PI*i/5;
+                  const r = [0.52,0.68,0.44,0.48,0.62][i];
+                  const x = 200 + (140*r + 16) * Math.cos(a);
+                  const y = 200 + (140*r + 16) * Math.sin(a);
+                  return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="central" fontSize="10" fill="white" fontWeight="700">{v}</text>;
+                })}
               </svg>
             </div>
           </div>
