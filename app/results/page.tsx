@@ -12,7 +12,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { toast } from "sonner";
-import { BigFiveBars } from "@/components/results/PersonalityRadar";
 import { FreeResult } from "@/types";
 
 const RESULT_KEY = "bilania_free_result";
@@ -77,7 +76,24 @@ export default function ResultsPage() {
                 <h2 className="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
                   <Brain className="w-5 h-5 text-blue-600" /> Traits de personnalité — Big Five
                 </h2>
-                <BigFiveBars data={result.bigFive} />
+                <div className="space-y-3">
+                  {[
+                    { label: 'Ouverture', value: result.bigFive.openness, color: '#2563eb', hint: 'Créativité, curiosité' },
+                    { label: 'Rigueur', value: result.bigFive.conscientiousness, color: '#0891b2', hint: 'Organisation, discipline' },
+                    { label: 'Extraversion', value: result.bigFive.extraversion, color: '#7c3aed', hint: 'Sociabilité, énergie' },
+                    { label: 'Agréabilité', value: result.bigFive.agreeableness, color: '#059669', hint: 'Empathie, coopération' },
+                    { label: 'Stabilité', value: 100 - (result.bigFive.neuroticism || 35), color: '#d97706', hint: 'Résilience émotionnelle' },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-3">
+                      <div className="w-28 text-sm font-semibold text-slate-700">{item.label}</div>
+                      <div className="flex-1 bg-slate-200 rounded-full h-3">
+                        <div className="h-3 rounded-full transition-all duration-700" style={{ width: `${item.value}%`, backgroundColor: item.color }} />
+                      </div>
+                      <div className="w-10 text-right font-bold text-sm" style={{ color: item.color }}>{item.value}</div>
+                      <div className="w-36 text-xs text-slate-400 hidden md:block">{item.hint}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
               )}
 
