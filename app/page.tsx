@@ -280,7 +280,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 bg-white/10 text-blue-300 text-sm font-bold px-4 py-2 rounded-full mb-6 border border-white/10">
               Rapport Premium
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold">Ce que vous allez obtenir</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-white">Ce que vous allez obtenir</h2>
             <p className="text-slate-400 text-lg mt-4 max-w-2xl mx-auto">
               Un rapport complet, visuel et personnalisé. Pas un PDF générique de 3 pages.
             </p>

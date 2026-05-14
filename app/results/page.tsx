@@ -240,7 +240,8 @@ export default function ResultsPage() {
                     </Button>
                     <p className="text-xs text-slate-400 text-center mt-3">Paiement sécurisé Stripe • Accès immédiat après paiement</p>
 
-                    <div className="mt-4 pt-4 border-t border-slate-100">
+                    <div className="mt-6 pt-4 border-t-2 border-slate-200">
+                      <p className="text-sm font-bold text-slate-800 text-center mb-3">Vous avez un code promo ?</p>
                       <PromoCodeInput onSuccess={() => router.push('/assessment/full')} />
                     </div>
                   </div>
@@ -301,7 +302,6 @@ function UpgradeDialog({ onClose }: { onClose: () => void }) {
 function PromoCodeInput({ onSuccess }: { onSuccess: () => void }) {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showInput, setShowInput] = useState(false);
 
   const handleValidate = async () => {
     if (!code.trim()) return;
@@ -320,20 +320,21 @@ function PromoCodeInput({ onSuccess }: { onSuccess: () => void }) {
     setLoading(false);
   };
 
-  if (!showInput) return (
-    <button onClick={() => setShowInput(true)} className="w-full text-center text-sm text-slate-500 hover:text-blue-600 transition-colors py-2 underline underline-offset-4">
-      Vous avez un code promo ?
-    </button>
-  );
-
   return (
-    <div className="flex gap-2">
-      <input type="text" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="BILANIA-XXXX-XXXX"
-        className="flex-grow px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 placeholder:text-slate-400 text-sm text-center uppercase tracking-wider outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
-        onKeyDown={(e) => e.key === "Enter" && handleValidate()} />
-      <button onClick={handleValidate} disabled={loading || !code.trim()} className="px-4 py-2.5 bg-white text-blue-700 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all disabled:opacity-50">
-        {loading ? "..." : "OK"}
-      </button>
+    <div className="bg-slate-100 rounded-xl p-4 border-2 border-dashed border-slate-300">
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-lg">🎁</span>
+        <span className="font-bold text-slate-700 text-sm">Code promo</span>
+        <span className="text-xs text-slate-400">— accès gratuit au bilan complet</span>
+      </div>
+      <div className="flex gap-2">
+        <input type="text" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="Entrez votre code ici"
+          className="flex-grow px-4 py-3 rounded-xl bg-white border-2 border-slate-300 text-slate-900 placeholder:text-slate-400 font-medium text-center uppercase tracking-wider outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+          onKeyDown={(e) => e.key === "Enter" && handleValidate()} />
+        <button onClick={handleValidate} disabled={loading || !code.trim()} className="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed shadow-sm">
+          {loading ? "..." : "Valider"}
+        </button>
+      </div>
     </div>
   );
 }
