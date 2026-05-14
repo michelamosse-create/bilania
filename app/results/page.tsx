@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ClipboardCheck, Sparkles, ArrowRight, CheckCircle2, Target, Briefcase,
-  Eye, Trophy, Zap, ChevronRight, ExternalLink, Brain, ChartBar
+  Eye, Trophy, Zap, ChevronRight, ExternalLink, Brain
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -140,23 +140,109 @@ export default function ResultsPage() {
                 </div>
               </div>
 
-              {/* Hidden careers + CTA */}
-              <div className="text-center space-y-4">
-                <p className="text-slate-500 text-sm">
-                  L&apos;IA a identifié <strong className="text-blue-600">{result.hiddenCareersCount} autres métiers</strong> + votre profil de personnalité complet + vos formations CPF.
-                </p>
+              {/* Premium Section */}
+              <div className="space-y-6 max-w-2xl mx-auto">
+                <div className="bg-white rounded-2xl border border-blue-200 shadow-lg overflow-hidden">
+                  <div className="bg-gradient-to-r from-blue-600 to-cyan-600 p-6 text-white">
+                    <Zap className="w-6 h-6 text-yellow-300 mb-2" />
+                    <h2 className="text-xl font-bold">Obtenez votre bilan de compétences complet</h2>
+                    <p className="text-blue-100 text-sm mt-1">Voici ce que vous allez débloquer :</p>
+                  </div>
 
-                <div className="max-w-md mx-auto bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 text-white shadow-xl shadow-blue-200">
-                  <div className="flex items-center gap-2 mb-2"><Zap className="w-5 h-5 text-yellow-300" /><span className="text-blue-100 text-sm font-semibold">PREMIUM</span></div>
-                  <h2 className="text-2xl font-bold mb-2">Débloquez votre analyse complète</h2>
-                  <p className="text-blue-100 text-sm mb-6">90 questions • 5 métiers avec fiches ROME • Personnalité complète • Formations CPF • Rapport PDF</p>
-                  <div className="text-3xl font-bold mb-6">9,90 € <span className="text-sm font-normal text-blue-200">paiement unique</span></div>
-                  <Button onClick={() => setShowPremium(true)} className="w-full bg-white text-blue-700 hover:bg-blue-50 rounded-full font-bold text-lg py-6 shadow-lg">
-                    Débloquer mon rapport complet<ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
-                  <p className="text-blue-200 text-xs text-center mt-3">Paiement sécurisé via Stripe. Accès immédiat.</p>
-                  <div className="mt-4 pt-4 border-t border-white/20">
-                    <PromoCodeInput onSuccess={() => router.push('/assessment/full')} />
+                  {/* Visual previews */}
+                  <div className="p-6 space-y-5">
+                    {/* 1. Personality charts preview */}
+                    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-grow">
+                          <div className="font-bold text-slate-800 text-sm mb-1">Profil de personnalité complet (Big Five + RIASEC)</div>
+                          <div className="text-slate-500 text-xs mb-2 leading-relaxed">Découvrez votre archétype parmi 12 profils. Visualisez vos 5 traits de personnalité et vos 6 types d'intérêts avec des graphiques radar.</div>
+                          <div className="text-xs font-medium text-blue-600 bg-blue-50 inline-block px-2 py-0.5 rounded-full">Valeur : 150€ en cabinet</div>
+                        </div>
+                        <div className="shrink-0 hidden sm:block">
+                          <svg width="100" height="100" viewBox="0 0 100 100" className="opacity-80">
+                            <polygon points="50,10 72,35 65,65 35,65 28,35" fill="rgba(37,99,235,0.15)" stroke="#2563eb" stroke-width="1.5"/>
+                            <polygon points="50,20 65,35 60,55 40,55 32,35" fill="rgba(37,99,235,0.3)" stroke="#2563eb" stroke-width="1.5"/>
+                            <circle cx="50" cy="20" r="2" fill="#2563eb"/>
+                            <circle cx="65" cy="35" r="2" fill="#2563eb"/>
+                            <circle cx="60" cy="55" r="2" fill="#2563eb"/>
+                            <circle cx="40" cy="55" r="2" fill="#2563eb"/>
+                            <circle cx="32" cy="35" r="2" fill="#2563eb"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 2. Domain scores preview */}
+                    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                      <div className="font-bold text-slate-800 text-sm mb-2">10 scores de compétences détaillés</div>
+                      <div className="space-y-1.5">
+                        {["Soft Skills","Hard Skills","Valeurs","Environnement","Culture Num.","Connaiss. IA","Programmation","Métiers Tech","Adaptabilité","Psychologie"].map((label, i) => (
+                          <div key={i} className="flex items-center gap-2 text-xs">
+                            <span className="w-20 text-slate-500 truncate">{label}</span>
+                            <div className="flex-grow bg-slate-200 rounded-full h-1.5">
+                              <div className="bg-blue-500 h-1.5 rounded-full" style={{width: `${40 + Math.random()*50}%`}}/>
+                            </div>
+                            <span className="text-blue-600 font-bold w-6 text-right">?</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="text-xs font-medium text-blue-600 bg-blue-50 inline-block px-2 py-0.5 rounded-full mt-2">110 questions • 10 domaines</div>
+                    </div>
+
+                    {/* 3. Career cards preview */}
+                    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                      <div className="font-bold text-slate-800 text-sm mb-2">5 métiers recommandés avec fiches ROME</div>
+                      <div className="space-y-2">
+                        {[1,2,3].map(i => (
+                          <div key={i} className="flex items-center justify-between bg-white rounded-lg p-2.5 text-xs border border-slate-100">
+                            <div>
+                              <span className="font-semibold text-slate-700">Métier #{i}</span>
+                              <span className="text-slate-300 ml-2">—</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <span className="text-slate-300">ROME: ?</span>
+                              <span className="bg-blue-50 text-blue-600 font-bold px-2 py-0.5 rounded-full">??%</span>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="text-center text-xs text-slate-400">+ 2 autres métiers débloqués</div>
+                      </div>
+                      <div className="text-xs font-medium text-blue-600 bg-blue-50 inline-block px-2 py-0.5 rounded-full mt-2">Avec salaire, tendance marché et parcours de formation</div>
+                    </div>
+
+                    {/* 4. Other benefits compact */}
+                    <div className="grid grid-cols-2 gap-3">
+                      {[
+                        { icon: "PenTool", title: "Analyse rédactionnelle", sub: "6 réponses analysées" },
+                        { icon: "FileText", title: "Analyse du CV", sub: "Croisement parcours × profil" },
+                        { icon: "GraduationCap", title: "Formations CPF", sub: "3 formations avec code RS" },
+                        { icon: "BookOpen", title: "Rapport PDF", sub: "10+ pages à télécharger" },
+                      ].map((item, i) => (
+                        <div key={i} className="bg-slate-50 rounded-xl p-3 border border-slate-100 text-center">
+                          <div className="text-lg">{item.icon}</div>
+                          <div className="font-bold text-slate-800 text-xs mt-1">{item.title}</div>
+                          <div className="text-slate-400 text-xs">{item.sub}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="px-6 pb-6">
+                    <div className="bg-amber-50 rounded-xl p-4 border border-amber-200 text-center mb-4">
+                      <div className="text-xs text-amber-700 font-medium">Un bilan de compétences en cabinet coûte 200€ à 2000€</div>
+                      <div className="text-4xl font-black text-slate-900 mt-1">9,90 €</div>
+                      <div className="text-sm text-slate-500">paiement unique • accès à vie • résultats immédiats</div>
+                    </div>
+
+                    <Button onClick={() => setShowPremium(true)} className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-full font-bold text-lg py-6 shadow-lg shadow-blue-200">
+                      Obtenir mon bilan complet pour 9,90 € <ArrowRight className="w-5 h-5 ml-2" />
+                    </Button>
+                    <p className="text-xs text-slate-400 text-center mt-3">Paiement sécurisé Stripe • Accès immédiat après paiement</p>
+
+                    <div className="mt-4 pt-4 border-t border-slate-100">
+                      <PromoCodeInput onSuccess={() => router.push('/assessment/full')} />
+                    </div>
                   </div>
                 </div>
               </div>

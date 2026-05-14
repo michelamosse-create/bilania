@@ -1478,16 +1478,16 @@ export const PREMIUM_QUESTIONS: Question[] = [
 ];
 
 export const QUESTION_CATEGORIES = {
-  soft_skills: { label: 'Soft Skills', icon: '💬', order: 1, type: 'pure' },
-  hard_skills: { label: 'Hard Skills', icon: '🛠️', order: 2, type: 'pure' },
-  values: { label: 'Valeurs & Motivations', icon: '🎯', order: 3, type: 'pure' },
-  environment: { label: 'Environnement de travail', icon: '🏢', order: 4, type: 'pure' },
-  digital_culture: { label: 'Culture Numérique', icon: '💻', order: 5, type: 'tech' },
-  ai_knowledge: { label: 'IA - Connaissances', icon: '🧠', order: 6, type: 'tech' },
-  ai_practice: { label: 'IA - Pratique', icon: '⚡', order: 7, type: 'tech' },
-  programming: { label: 'Programmation & Tech', icon: '⌨️', order: 8, type: 'tech' },
-  tech_jobs: { label: 'Métiers du Numérique', icon: '🚀', order: 9, type: 'tech' },
-  learning_adaptability: { label: 'Apprentissage & Adaptabilité', icon: '📚', order: 10, type: 'tech' },
+  soft_skills: { label: 'Soft Skills', icon: '', order: 1, type: 'pure' },
+  hard_skills: { label: 'Hard Skills', icon: '', order: 2, type: 'pure' },
+  values: { label: 'Valeurs & Motivations', icon: '', order: 3, type: 'pure' },
+  environment: { label: 'Environnement de travail', icon: '', order: 4, type: 'pure' },
+  digital_culture: { label: 'Culture Numérique', icon: '', order: 5, type: 'tech' },
+  ai_knowledge: { label: 'IA - Connaissances', icon: '', order: 6, type: 'tech' },
+  ai_practice: { label: 'IA - Pratique', icon: '', order: 7, type: 'tech' },
+  programming: { label: 'Programmation & Tech', icon: '', order: 8, type: 'tech' },
+  tech_jobs: { label: 'Métiers du Numérique', icon: '', order: 9, type: 'tech' },
+  learning_adaptability: { label: 'Apprentissage & Adaptabilité', icon: '', order: 10, type: 'tech' },
 } as const;
 
 export const TOTAL_QUESTIONS = ALL_QUESTIONS.length;

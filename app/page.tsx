@@ -17,6 +17,12 @@ import {
   BarChart3,
   Zap,
   Cpu,
+  Compass,
+  Lightbulb,
+  GraduationCap,
+  FileText,
+  BookOpen,
+  PenTool,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -45,7 +51,7 @@ export default function Home() {
             </a>
             <Link href="/assessment">
               <Button className="bg-blue-600 hover:bg-blue-700 text-white rounded-full">
-                Démarrer le test gratuit
+                Test gratuit
               </Button>
             </Link>
           </nav>
@@ -75,7 +81,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link href="/assessment">
                   <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white rounded-full text-lg px-8 py-6 shadow-lg shadow-blue-200 group">
-                    Faire mon bilan gratuit
+                    Faire le test gratuit
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
@@ -112,8 +118,52 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Pourquoi un bilan */}
+      <section className="py-20 md:py-28 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                Pourquoi faire un bilan de compétences avant de se reconvertir ?
+              </h2>
+              <div className="space-y-4 text-slate-600">
+                <p className="leading-relaxed">
+                  <strong className="text-slate-900">70% des reconversions échouent</strong> par manque de préparation.
+                  Un bilan de compétences vous permet d&apos;éviter les erreurs coûteuses : choisir un métier qui ne vous correspond pas,
+                  vous inscrire à une formation inadaptée, ou perdre du temps dans une voie sans débouchés.
+                </p>
+                <p className="leading-relaxed">
+                  <strong className="text-slate-900">Connaître ses forces et ses motivations profondes</strong> est la première étape.
+                  Trop de personnes choisissent un métier sur un coup de tête ou parce que &ldquo;ça recrute&rdquo;, sans se demander
+                  si ce métier correspond vraiment à leur personnalité, leurs valeurs et leur style de travail.
+                </p>
+                <p className="leading-relaxed">
+                  <strong className="text-slate-900">Un bilan de compétences traditionnel coûte entre 200€ et 2000€</strong> et prend
+                  plusieurs semaines. BilanIA vous donne l&apos;essentiel en 5 minutes pour 0€, et une analyse complète
+                  pour 9,90€ — soit 20 à 50 fois moins cher qu&apos;un cabinet classique.
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { Icon: Target, title: "Identifiez vos forces", desc: "Découvrez ce qui vous rend unique et comment le valoriser." },
+                { Icon: Compass, title: "Évitez les erreurs", desc: "Ne choisissez pas un métier qui ne vous correspond pas." },
+                { Icon: BarChart3, title: "Gagnez du temps", desc: "Ciblez directement les métiers compatibles avec votre profil." },
+                { Icon: Lightbulb, title: "Révélez votre potentiel", desc: "L'IA détecte des talents que vous ne soupçonnez pas." },
+              ].map(({ Icon, title, desc }, i) => (
+                <div key={i} className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+                  <Icon className="w-7 h-7 text-blue-600 mb-2" />
+                  <div className="font-bold text-slate-800 text-sm mb-1">{title}</div>
+                  <div className="text-slate-500 text-xs leading-relaxed">{desc}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How it works */}
-      <section id="how-it-works" className="py-20 md:py-28 bg-white">
+      <section id="how-it-works" className="py-20 md:py-28 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900">
             Comment fonctionne <span className="text-blue-600">BilanIA</span> ?
@@ -164,7 +214,7 @@ export default function Home() {
             Deux bilans complémentaires
           </h2>
           <p className="text-slate-500 text-center mt-4 max-w-xl mx-auto">
-            Un bilan de compétences pur, et un bilan orienté nouvelles technologies pour préparer votre avenir.
+            Un test d'orientation gratuit, et un bilan de compétences complet avec les nouvelles technologies.
           </p>
           <div className="grid md:grid-cols-2 gap-8 mt-16">
             {/* Bilan 1 */}
@@ -178,10 +228,10 @@ export default function Home() {
                 <Badge className="mb-3 bg-blue-100 text-blue-700 border-blue-200">
                   Gratuit
                 </Badge>
-                <h3 className="text-xl font-bold text-slate-800 mb-2">Bilan de compétences</h3>
+                <h3 className="text-xl font-bold text-slate-800 mb-2">Test d'orientation</h3>
                 <p className="text-slate-500 text-sm mb-4">
-                  Analysez vos soft skills, vos hard skills, vos valeurs et votre environnement de travail idéal.
-                  Découvrez les métiers qui correspondent vraiment à votre personnalité.
+                  12 questions rapides sur vos soft skills, vos valeurs et votre environnement de travail.
+                  Un premier aperçu de votre profil pour découvrir votre potentiel.
                 </p>
                 <ul className="space-y-2 text-sm text-slate-600">
                   <li className="flex items-center gap-2"><Check className="w-4 h-4 text-green-500" /> Communication & leadership</li>
@@ -222,96 +272,78 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Results Preview */}
-      <section className="py-20 md:py-28 bg-white border-t border-slate-200">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900">
-            Votre rapport premium en un coup d&apos;œil
-          </h2>
-          <p className="text-slate-500 text-center mt-4 max-w-xl mx-auto">
-            Voici un exemple de ce que vous obtiendrez avec l&apos;analyse complète.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            {/* Example profile card */}
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl p-6 text-white shadow-xl">
-              <div className="text-blue-200 text-xs font-bold uppercase mb-2">Profil</div>
-              <div className="text-2xl font-black mb-3">Profil Analyste</div>
-              <p className="text-blue-100 text-sm leading-relaxed">
-                &ldquo;Vous possédez un esprit analytique et structuré, avec une forte appétence pour les données.
-                Votre autonomie et votre curiosité sont vos meilleurs atouts pour une reconversion réussie.&rdquo;
-              </p>
-              <div className="mt-4 flex gap-2">
-                <span className="bg-white/20 text-white text-xs px-2 py-1 rounded-full">Affinité numérique : Avancé</span>
-              </div>
+      {/* Rapport premium preview — DESIGN IMPACTANT */}
+      <section className="py-24 md:py-32 relative overflow-hidden"><div className="absolute inset-0"><img src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop" alt="" className="w-full h-full object-cover"/><div className="absolute inset-0 bg-slate-900/90 backdrop-blur-sm"/></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(37,99,235,0.15),transparent_60%)]" />
+        <div className="max-w-6xl mx-auto px-4 relative">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 bg-white/10 text-blue-300 text-sm font-bold px-4 py-2 rounded-full mb-6 border border-white/10">
+              Rapport Premium
             </div>
+            <h2 className="text-3xl md:text-5xl font-bold">Ce que vous allez obtenir</h2>
+            <p className="text-slate-400 text-lg mt-4 max-w-2xl mx-auto">
+              Un rapport complet, visuel et personnalisé. Pas un PDF générique de 3 pages.
+            </p>
+          </div>
 
-            {/* Example domain scores */}
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <div className="text-xs font-bold text-slate-500 uppercase mb-4">Scores par domaine</div>
-              <div className="space-y-3">
-                {[
-                  { label: "Soft Skills", score: 4.2 },
-                  { label: "Hard Skills", score: 3.8 },
-                  { label: "Valeurs", score: 4.0 },
-                  { label: "Environnement", score: 3.5 },
-                  { label: "Culture Num.", score: 3.6 },
-                  { label: "Connaiss. IA", score: 4.1 },
-                  { label: "Programmation", score: 2.3 },
-                ].map((d, i) => (
-                  <div key={i} className="flex items-center gap-2 text-xs">
-                    <span className="w-24 text-slate-600 truncate">{d.label}</span>
-                    <div className="flex-grow bg-slate-200 rounded-full h-1.5">
-                      <div className="bg-blue-500 h-1.5 rounded-full" style={{ width: `${(d.score / 5) * 100}%` }} />
-                    </div>
-                    <span className="font-bold text-blue-600 w-5 text-right">{d.score}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Example careers */}
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <div className="text-xs font-bold text-slate-500 uppercase mb-4">Métiers recommandés</div>
-              <div className="space-y-3">
-                {[
-                  { title: "Data Analyst", salary: "35-55k€", score: 88, trend: "Forte croissance" },
-                  { title: "Chef de Projet IT", salary: "40-65k€", score: 82, trend: "Croissance" },
-                  { title: "Consultant IA", salary: "45-75k€", score: 75, trend: "Forte croissance" },
-                  { title: "Business Analyst", salary: "35-55k€", score: 73, trend: "Stable" },
-                  { title: "No-Code Developer", salary: "30-60k€", score: 65, trend: "Croissance" },
-                ].map((career, i) => (
-                  <div key={i} className="flex items-center justify-between bg-white rounded-lg p-2.5 text-sm border border-slate-100">
-                    <div>
-                      <span className="font-semibold text-slate-800">{career.title}</span>
-                      <span className="text-slate-400 text-xs ml-2">{career.salary}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-green-600">{career.trend}</span>
-                      <span className="font-bold text-blue-600 text-xs">{career.score}%</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          {/* Big centered radar */}
+          <div className="flex justify-center mb-16">
+            <div className="bg-white/5 backdrop-blur rounded-3xl p-8 border border-white/10 shadow-2xl">
+              <svg width="340" height="340" viewBox="0 0 200 200">
+                {[0.2,0.4,0.6,0.8].map(level => {
+                  const pts = [0,1,2,3,4].map(i => {
+                    const a = -Math.PI/2 + 2*Math.PI*i/5;
+                    return `${100+85*level*Math.cos(a)},${100+85*level*Math.sin(a)}`;
+                  }).join(' ');
+                  return <polygon key={level} points={pts} fill="none" stroke="rgba(148,163,184,0.15)" strokeWidth="0.5"/>;
+                })}
+                <polygon points={[0,1,2,3,4].map(i => {const a=-Math.PI/2+2*Math.PI*i/5;const r=[0.52,0.68,0.44,0.48,0.62][i];return `${100+85*r*Math.cos(a)},${100+85*r*Math.sin(a)}`;}).join(' ')} fill="rgba(59,130,246,0.2)" stroke="#3b82f6" strokeWidth="2"/>
+                {[0,1,2,3,4].map(i => {const a=-Math.PI/2+2*Math.PI*i/5;const r=[0.52,0.68,0.44,0.48,0.62][i];return <circle key={i} cx={100+85*r*Math.cos(a)} cy={100+85*r*Math.sin(a)} r="3" fill="#60a5fa"/>;})}
+                {['Ouverture','Rigueur','Extraversion','Agréabilité','Stabilité'].map((l,i)=>{const a=-Math.PI/2+2*Math.PI*i/5;return <text key={i} x={100+105*Math.cos(a)} y={100+105*Math.sin(a)} textAnchor="middle" dominantBaseline="central" fontSize="10" fill="#94a3b8" fontWeight="600">{l}</text>;})}
+                <text x="100" y="100" textAnchor="middle" dominantBaseline="central" fontSize="22" fontWeight="900" fill="white">Big Five</text>
+              </svg>
             </div>
           </div>
 
-          {/* Formations example */}
-          <div className="mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100 max-w-2xl mx-auto">
-            <div className="text-xs font-bold text-green-600 uppercase mb-4">Formations CPF recommandées</div>
-            <div className="grid md:grid-cols-3 gap-4">
-              {[
-                { title: "Data Analyst", duration: "6 mois", cost: "5 900€", score: 90 },
-                { title: "Chef de projet IA", duration: "12 mois", cost: "6 500€", score: 85 },
-                { title: "Développeur No-Code", duration: "3 mois", cost: "4 900€", score: 75 },
-              ].map((f, i) => (
-                <div key={i} className="bg-white rounded-xl p-4 text-center border border-green-200">
-                  <div className="font-bold text-slate-800 text-sm">{f.title}</div>
-                  <div className="text-xs text-slate-500 mt-1">⏱ {f.duration} · 💰 {f.cost}</div>
-                  <div className="mt-2 inline-block bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">{f.score}% match</div>
-                </div>
-              ))}
-            </div>
+          {/* 3 feature cards */}
+          <div className="grid md:grid-cols-3 gap-6 mb-16">
+            {[
+              { Icon: Target, title: "5 métiers recommandés", desc: "Avec code ROME, fiche France Travail, salaire, tendance marché et score de matching.", color: "border-blue-400/20" },
+              { Icon: BarChart3, title: "10 scores de compétences", desc: "Soft skills, hard skills, valeurs, numérique, IA, programmation, adaptabilité et plus.", color: "border-purple-400/20" },
+              { Icon: GraduationCap, title: "Formations CPF éligibles", desc: "3 formations finançables avec code RS, organisme, durée, coût et score d'adéquation.", color: "border-emerald-400/20" },
+            ].map(({ Icon, title, desc, color }, i) => (
+              <div key={i} className={`bg-white/5 backdrop-blur rounded-2xl p-6 border ${color}`}>
+                <Icon className="w-8 h-8 text-blue-400 mb-3" />
+                <div className="font-bold text-white text-lg mb-2">{title}</div>
+                <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom stats row */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+            {[
+              { v: "110", l: "Questions" },
+              { v: "12", l: "Archétypes" },
+              { v: "10", l: "Domaines" },
+              { v: "PDF", l: "Rapport" },
+            ].map((s, i) => (
+              <div key={i} className="text-center bg-white/5 backdrop-blur rounded-2xl p-5 border border-white/10">
+                <div className="text-3xl font-black text-white">{s.v}</div>
+                <div className="text-slate-400 text-sm mt-1">{s.l}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <p className="text-slate-400 mb-6">Prêt à découvrir <span className="text-white font-semibold">votre</span> rapport personnalisé ?</p>
+            <Link href="/assessment">
+              <Button size="lg" className="bg-white hover:bg-slate-100 text-slate-900 rounded-full text-lg px-10 py-6 font-bold shadow-2xl shadow-blue-500/20 group">
+                Commencer le test gratuit <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Link>
+            <p className="text-slate-500 text-sm mt-4">12 questions · 5 minutes · Premium à 9,90€ après le test</p>
           </div>
         </div>
       </section>
@@ -352,7 +384,7 @@ export default function Home() {
                   Gratuit
                 </Badge>
                 <div className="text-3xl font-bold text-slate-900 mb-2">0 €</div>
-                <p className="text-slate-500 text-sm mb-6">Bilan de compétences — 12 questions en 5 minutes</p>
+                <p className="text-slate-500 text-sm mb-6">Test d'orientation — 12 questions en 5 minutes</p>
                 <ul className="space-y-3 mb-8">
                   {[
                     "Votre profil professionnel identifié",
@@ -368,7 +400,7 @@ export default function Home() {
                 </ul>
                 <Link href="/assessment">
                   <Button className="w-full rounded-full bg-slate-900 hover:bg-slate-800 text-white">
-                    Commencer gratuitement
+                    Test gratuit
                   </Button>
                 </Link>
               </CardContent>
@@ -405,7 +437,7 @@ export default function Home() {
                 </ul>
                 <Link href="/assessment">
                   <Button className="w-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg shadow-blue-200">
-                    Démarrer le test gratuit
+                    Test gratuit
                   </Button>
                 </Link>
                 <p className="text-xs text-slate-400 text-center mt-3">
@@ -447,7 +479,7 @@ export default function Home() {
           </p>
           <Link href="/assessment">
             <Button size="lg" className="mt-8 bg-white text-blue-700 hover:bg-blue-50 rounded-full text-lg px-10 py-6 font-bold shadow-xl">
-              Je démarre mon bilan gratuit
+              Je démarre le test gratuit
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
           </Link>

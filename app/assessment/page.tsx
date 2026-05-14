@@ -8,7 +8,11 @@ import {
   ChevronLeft,
   Loader2,
   Sparkles,
+  Brain,
+  Lock,
   ArrowRight,
+  Target,
+  Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -130,14 +134,14 @@ export default function AssessmentPage() {
 
               <div className="grid grid-cols-2 gap-4 max-w-md mx-auto text-left">
                 {[
-                  { icon: "🧠", title: "Analyse IA" },
-                  { icon: "⚡", title: "5 minutes" },
-                  { icon: "🎯", title: "Métier suggéré" },
-                  { icon: "🔒", title: "Sans inscription" },
-                ].map((item, i) => (
+                  { Icon: Brain, title: "Analyse IA" },
+                  { Icon: Zap, title: "5 minutes" },
+                  { Icon: Target, title: "Métier suggéré" },
+                  { Icon: Lock, title: "Sans inscription" },
+                ].map(({ Icon, title }, i) => (
                   <div key={i} className="flex items-center gap-2 bg-white p-3 rounded-xl border border-slate-100">
-                    <span className="text-lg">{item.icon}</span>
-                    <span className="text-sm font-medium text-slate-700">{item.title}</span>
+                    <Icon className="w-5 h-5 text-blue-600" />
+                    <span className="text-sm font-medium text-slate-700">{title}</span>
                   </div>
                 ))}
               </div>
