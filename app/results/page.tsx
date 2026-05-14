@@ -321,7 +321,7 @@ function PromoCodeInput({ onSuccess }: { onSuccess: () => void }) {
   };
 
   if (!showInput) return (
-    <button onClick={() => setShowInput(true)} className="w-full text-center text-sm text-blue-200 hover:text-white transition-colors py-2 underline underline-offset-4">
+    <button onClick={() => setShowInput(true)} className="w-full text-center text-sm text-slate-500 hover:text-blue-600 transition-colors py-2 underline underline-offset-4">
       Vous avez un code promo ?
     </button>
   );
@@ -329,7 +329,7 @@ function PromoCodeInput({ onSuccess }: { onSuccess: () => void }) {
   return (
     <div className="flex gap-2">
       <input type="text" value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="BILANIA-XXXX-XXXX"
-        className="flex-grow px-4 py-2.5 rounded-xl bg-white/20 border border-white/30 text-white placeholder:text-white/50 text-sm text-center uppercase tracking-wider outline-none focus:bg-white/30 transition-all"
+        className="flex-grow px-4 py-2.5 rounded-xl bg-white border border-slate-300 text-slate-800 placeholder:text-slate-400 text-sm text-center uppercase tracking-wider outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
         onKeyDown={(e) => e.key === "Enter" && handleValidate()} />
       <button onClick={handleValidate} disabled={loading || !code.trim()} className="px-4 py-2.5 bg-white text-blue-700 rounded-xl font-bold text-sm hover:bg-blue-50 transition-all disabled:opacity-50">
         {loading ? "..." : "OK"}
