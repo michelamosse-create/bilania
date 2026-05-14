@@ -2,10 +2,63 @@ import { NextRequest, NextResponse } from 'next/server';
 import { analyzeWithAI } from '@/lib/ai';
 import { ALL_QUESTIONS, OPEN_ENDED_QUESTIONS, EXTENDED_OPEN_QUESTIONS } from '@/constants/questions';
 
+function validateReport(report: any) {
+  const clamp = (v: number, min: number, max: number, fallback: number) =>
+    isNaN(v) || v < min || v > max ? fallback : Math.round(v);
+
+  return {
+    ...report,
+    bigFive: {
+      openness: clamp(report?.bigFive?.openness, 0, 100, 60),
+      conscientiousness: clamp(report?.bigFive?.conscientiousness, 0, 100, 65),
+      extraversion: clamp(report?.bigFive?.extraversion, 0, 100, 50),
+      agreeableness: clamp(report?.bigFive?.agreeableness, 0, 100, 60),
+      neuroticism: clamp(report?.bigFive?.neuroticism, 0, 100, 35),
+    },
+    careerSuggestions: (report?.careerSuggestions || []).slice(0, 5).map((c: any, i: number) => ({
+      title: c.title || `Métier ${i + 1}`,
+      description: c.description || '',
+      relevance: c.relevance || 'Élevée',
+      salary_range: c.salary_range || '30k€-50k€',
+      trend: ['Forte croissance', 'Croissance', 'Stable', 'En transformation', 'En déclin'].includes(c.trend) ? c.trend : 'Croissance',
+      matchingScore: clamp(c.matchingScore, 50, 100, 85 - i * 5),
+      rome: (c.rome || 'M1805').toUpperCase().match(/^[A-Z]\d{4}$/) ? c.rome.toUpperCase() : 'M1805',
+      skillsMatch: (c.skillsMatch || []).slice(0, 4),
+      formationPath: c.formationPath || '',
+    })),
+    cpfFormations: (report?.cpfFormations || []).slice(0, 3).map((f: any, i: number) => {
+      const rs = (f.rsCode || 'RS1234').toUpperCase().replace(/[^A-Z0-9]/g, '').match(/^RS\d{4}$/) ? f.rsCode : 'RS1234';
+      let duree = f.duration || '6 mois';
+      const mois = parseInt(duree);
+      if (mois > 48) duree = '3 jours';
+      if (duree.length > 30) duree = duree.substring(0, 30);
+      let cout = clamp(f.cost ? parseInt(f.cost) : 3000, 0, 15000, 3000);
+      return {
+        title: f.title || `Formation ${i + 1}`,
+        provider: f.provider || 'Organisme certifié',
+        duration: duree,
+        cost: `${cout} €`,
+        eligibleCPF: true,
+        matchingScore: clamp(f.matchingScore, 50, 100, 85 - i * 5),
+        rsCode: rs,
+        url: f.url || `https://www.francecompetences.fr/recherche/?query=${rs}`,
+        description: f.description || '',
+      };
+    }),
+    planAction: (report?.planAction || []).slice(0, 5).map((a: any, i: number) => {
+      if (typeof a === 'string') return { semaine: (i + 1) * 2, action: a, ressource: '' };
+      return {
+        semaine: clamp(a.semaine || a.week, 1, 52, (i + 1) * 2),
+        action: a.action || `Étape ${i + 1}`,
+        ressource: a.ressource || a.ressource || '',
+      };
+    }),
+  };
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { answers, openAnswers, cvText } = await req.json();
-
     if (!answers || typeof answers !== 'object') {
       return NextResponse.json({ error: 'Données invalides' }, { status: 400 });
     }
@@ -14,82 +67,42 @@ export async function POST(req: NextRequest) {
 
     const allOpenQuestions = [...OPEN_ENDED_QUESTIONS, ...EXTENDED_OPEN_QUESTIONS];
     const openSection = openAnswers ? `
-RÉPONSES AUX QUESTIONS RÉDACTIONNELLES (texte libre):
-${allOpenQuestions.map(q => `[${q.id}] ${q.text}\nRÉPONSE: ${openAnswers[q.id] || 'Pas de réponse'}\n`).join('\n')}` : '';
+RÉPONSES AUX QUESTIONS RÉDACTIONNELLES :
+${allOpenQuestions.map(q => `[${q.id}] ${q.text}\nRÉPONSE: ${openAnswers[q.id] || 'Pas de réponse'}`).join('\n\n')}` : '';
 
-    const cvSection = cvText ? `
-CV DU CANDIDAT (texte extrait):
-${cvText.substring(0, 3000)}
-` : '';
+    const cvSection = cvText ? `\nCV DU CANDIDAT:\n${cvText.substring(0, 3000)}\n` : '';
 
-    const prompt = `Tu es un psychologue du travail expert en orientation professionnelle et bilan de compétences. Tu aides des personnes en reconversion à trouver LEUR voie, quel que soit le secteur.
+    const prompt = `Bilan de compétences — ${ALL_QUESTIONS.length} questions.
 
-RÉPONSES AU QUESTIONNAIRE (${ALL_QUESTIONS.length} questions, échelle 1-5):
+RÉPONSES:
 ${JSON.stringify(compact)}
 
 QUESTIONS:
-${ALL_QUESTIONS.map(q => `[${q.id}] (${q.category}) ${q.text}`).join('\n')}
+${ALL_QUESTIONS.map(q => `[${q.id}] ${q.text}`).join('\n')}
 ${openSection}
 ${cvSection}
 
-IMPORTANT: Le candidat peut venir de N'IMPORTE QUEL SECTEUR (secrétariat, BTP, santé, commerce, industrie, etc.) et peut s'orienter vers N'IMPORTE QUEL SECTEUR (pas seulement le numérique). Analyse sa personnalité, ses valeurs, ses compétences et son parcours pour lui proposer les métiers qui lui correspondent VRAIMENT, qu'ils soient dans le numérique, le médical, le social, l'artisanat, l'éducation, le commerce ou tout autre domaine.
-
-Calcule:
-- Big Five (0-100): openness, conscientiousness, extraversion, agreeableness, neuroticism
-- RIASEC (0-100): realistic, investigative, artistic, social, enterprising, conventional
-- 10 scores de domaine (/5)
-- 5 métiers variés et pertinents (pas seulement tech)
-- 3 formations CPF
-
-Fournis UNIQUEMENT ce JSON:
+Fournis UN JSON avec :
 {
-  "summary": "Analyse PROFONDÉMENT personnalisée (6-7 phrases). Inclus une section 'Analyse de vos réponses rédactionnelles' qui décrypte ce que révèlent ses réussites, ses rêves et ses obstacles. Mentionne des patterns spécifiques. Donne des insights que la personne n'aurait pas devinés.",
+  "summary": "Analyse personnalisée 6-7 phrases. Mentionne des éléments SPÉCIFIQUES du profil.",
   "profileType": "Innovateur|Analyste Stratégique|Bâtisseur|Communicant|Créateur|Explorateur|Coordinateur|Visionnaire|Gardien|Facilitateur|Pionnier|Architecte",
-  "bigFive": {"openness":70,"conscientiousness":65,"extraversion":50,"agreeableness":60,"neuroticism":35},
+  "bigFive": {"openness":60,"conscientiousness":65,"extraversion":50,"agreeableness":60,"neuroticism":35},
   "riasec": {"realistic":50,"investigative":70,"artistic":40,"social":55,"enterprising":45,"conventional":60},
   "digitalAffinity": "beginner|intermediate|advanced|expert",
-  "strengths": ["5 forces SPÉCIFIQUES avec exemples tirés des réponses"],
-  "areasForImprovement": ["3 axes avec suggestions concrètes"],
+  "strengths": ["5 forces spécifiques avec exemples tirés des réponses"],
+  "areasForImprovement": ["3 axes avec suggestions"],
   "domainScores": [10 objets: domain,label,score(max5),interpretation],
-  "careerSuggestions": [
-    {
-      "title": "métier (pas forcément tech)",
-      "description": "pourquoi CE métier pour CETTE personne",
-      "relevance": "Très élevée|Élevée|Moyenne",
-      "salary_range": "XXk€-XXk€",
-      "trend": "Forte croissance|Croissance|Stable|En transformation",
-      "matchingScore": 88,
-      "rome": "CODE_ROME",
-      "skillsMatch": ["compétence 1", "compétence 2"],
-      "formationPath": "parcours recommandé"
-    }
-  ],
-  "cpfFormations": [
-    {
-      "title": "formation",
-      "provider": "organisme",
-      "duration": "X mois",
-      "cost": "X €",
-      "eligibleCPF": true,
-      "matchingScore": 90,
-      "rsCode": "RSXXXX",
-      "url": "https://www.francecompetences.fr/recherche/rs/XXXX/",
-      "description": "bénéfices pour cette personne"
-    }
-  ],
-  "skillsRadarData": [
-    {"subject":"Relationnel","A":3.5,"fullMark":5},
-    {"subject":"Analyse","A":4,"fullMark":5},
-    {"subject":"Créativité","A":3,"fullMark":5},
-    {"subject":"Organisation","A":3.5,"fullMark":5},
-    {"subject":"Adaptabilité","A":4,"fullMark":5}
-  ]
+  "careerSuggestions": [5 métiers avec title,description,relevance,salary_range,trend(Forte croissance|Croissance|Stable|En transformation|En déclin),matchingScore,rome(CODE EXACT),skillsMatch,formationPath],
+  "cpfFormations": [3 formations avec title,provider,duration(JAMAIS>36mois, PSPO=2-5jours),cost(800-8000€),eligibleCPF,matchingScore,rsCode(RS+4chiffres),url,description],
+  "planAction": [{"semaine":1,"action":"Contacter 3 pros sur LinkedIn","ressource":"https://linkedin.com"}, ...],
+  "skillsRadarData": [5 objets: subject(Relationnel|Analyse|Créativité|Organisation|Adaptabilité),A(max5),fullMark:5]
 }
-5 métiers VARIÉS couvrant différents secteurs si pertinent. 3 formations CPF réelles. PERSONNALISE au maximum.`;
+5 métiers. 3 formations. 4 étapes plan action MINIMUM. Sois PRÉCIS.`;
 
     const result = await analyzeWithAI(prompt, 8192);
     const data = JSON.parse(result);
-    return NextResponse.json(data);
+    const validated = validateReport(data);
+    return NextResponse.json(validated);
   } catch (error) {
     console.error('Erreur analyse complète:', error);
     return NextResponse.json({ error: "Erreur lors de l'analyse." }, { status: 500 });

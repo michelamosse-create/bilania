@@ -544,7 +544,8 @@ export default function Home() {
           </div>
         </div>
         <div className="max-w-6xl mx-auto px-4 mt-12 pt-8 border-t border-slate-800 text-center text-slate-500 text-xs">
-          © {new Date().getFullYear()} BilanIA. Tous droits réservés.
+          © {new Date().getFullYear()} BilanIA. Tous droits réservés.<br/>
+          <span className="text-slate-600">BilanIA est un outil d'auto-positionnement. Il ne remplace pas un bilan de compétences réalisé par un prestataire habilité (<a href="https://www.service-public.fr/particuliers/vosdroits/F3087" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-400">en savoir plus</a>).</span>
         </div>
       </footer>
     </div>
